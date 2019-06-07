@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
 
@@ -44,7 +45,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _message = "";
 
   void _incrementCounter() {
     setState(() {
@@ -53,9 +54,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+
+
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -108,4 +112,14 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+Future<http.Response> fetchPost(){
+  return http.get('/rest/hello');
+}
+
+class Message {
+  final String msg;
+
+  Message ({this.msg});
 }
