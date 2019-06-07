@@ -23,40 +23,72 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HelloWorld(),
+      home: HelloWorld(title: "This is your message!"),
     );
   }
 }
 
-class HelloWorld extends StatelessWidget {
+class HelloWorld extends StatefulWidget {
+  final String title;
 
+  HelloWorld({Key key, this.title}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<Message>(
-      future: fetchMessage(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Text(snapshot.data.msg);
-        } else if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
-        }
+  _HelloWorldState createState() => _HelloWorldState();
+}
 
-        //by default, show a loading spinner
-        return CircularProgressIndicator();
-      },
+
+class _HelloWorldState extends State<HelloWorld> {
+  Future<Message> message;
+
+  @override
+  Widget build(BuildContext context){
+    double c_width = MediaQuery.of(context).size.width*0.8;
+
+    return
+    Container(
+      width: c_width,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+          Text(widget.title, style: TextStyle(color: Colors.amberAccent)),
+          SizedBox(height: 50),
+          buildMessage()
+        ],
+      )
     );
   }
 }
 
 
+Widget buildMessage() {
+  return
+  FutureBuilder<Message>( //TODO move this out of the builder, maybe stateful with load button?
+    future: fetchMessage(),
+    builder: (context, snapshot) {
+      if (snapshot.hasData) {
+        return Text(snapshot.data.msg);
+      } else if (snapshot.hasError) {
+        return Text(
+          snapshot.error.toString(),
+          style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.red
+          ),
+        );
+      }
 
-
-
-
+      //by default, show a loading spinner
+      return CircularProgressIndicator();
+    },
+  );
+}
 
 Future<Message> fetchMessage() async{
-  final response = await http.get('http://localhost:8080/rest/hello');
+  final response = await http.get('http://localhost:8080/main.dart/rest/hello');
 
   if (response.statusCode == 200) {
     //if server returns okay
