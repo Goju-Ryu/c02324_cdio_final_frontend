@@ -1,15 +1,19 @@
 package rest;
 
+import com.google.gson.JsonObject;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+
+
 
 @Path("hello")
 public class HelloService {
 	
 	@GET
-	public String getHello(){
-		return "Hello";
+	public JsonObject getHello(){
+		return get();
 	}
 	
 	@POST
@@ -18,4 +22,9 @@ public class HelloService {
 		
 	}
 
+	private JsonObject get () {
+		JsonObject hello = new JsonObject();
+		hello.addProperty("Message", "Hello World!");
+		return hello;
+	}
 }
