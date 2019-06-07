@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello JQuery</title>
+<script src="jquery-3.1.1.js"></script>
+<script>
+function hello(){
+	 var data = $("#brugernavn").val();
+	 console.log('data:' + data);
+	$.ajax({
+		url : 'rest/hello',
+		type: 'POST',
+		data : data,
+		contentType : 'text/plain',
+		dataType : 'text',
+		success: function(response){
+			$('#mydiv').text(response);
+		},
+		statusCode: {
+			404: function(data){
+				alert("404 : " + data);
+			}
+		}
+	
+	});
+}
+
+</script>
+</head>
+<body>
+<form name="helloform" id="helloform">
+<input type="text" id="brugernavn" name="brugernavn">Skriv dit navn
+<input type="button" onclick="hello();" value="Hello">
+</form>
+<div id="mydiv"></div>
+</body>
+</html>

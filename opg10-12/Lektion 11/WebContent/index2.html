@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hello Test</title>
+<script src="jquery-3.1.1.js"></script>
+<script>
+$(function() { // Sikrer sig at dokumentet er indlæst, 
+			   // før click handlers håndteres
+	$('#hellobutton').click(function() { //Sætter en click handler på knappen
+			$.ajax({				//Indleder et asynkront ajax kald
+				url : 'rest/hello',	//specificerer endpointet
+				type : 'GET',	//Typen af HTTP requestet (GET er default)
+			success : function(data){//Funktion der skal udføres når data er hentet
+				$('#mydiv').html(data); //Manipulerer #mydiv.
+				} 
+			});
+			return false; //for at undgå at knappen poster data (default behavior).
+	});
+});
+</script>
+</head>
+<body>
+<button id="hellobutton">Hello2</button>
+<div id="mydiv">Tryk på knappen for at skifte teksten1</div> 
+</body>
+</html>
