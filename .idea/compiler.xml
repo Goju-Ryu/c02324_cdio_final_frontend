@@ -6,10 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="backend" />
+        <module name="front_end" />
         <module name="semester2_cdio_final" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="backend" target="1.5" />
+      <module name="front_end" target="1.5" />
       <module name="semester2_cdio_final" target="1.5" />
     </bytecodeTargetLevel>
   </component>
