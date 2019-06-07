@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dtu.swt.course02324.spring2019.group14.frontend">
+    package="c02324.f19.group14.frontend.semester2_cdio_final">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->

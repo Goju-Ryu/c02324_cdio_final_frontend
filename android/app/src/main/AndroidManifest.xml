@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dtu.swt.course02324.spring2019.group14.frontend">
+    package="c02324.f19.group14.frontend.semester2_cdio_final">
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -8,7 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="frontend"
+        android:label="semester2_cdio_final"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

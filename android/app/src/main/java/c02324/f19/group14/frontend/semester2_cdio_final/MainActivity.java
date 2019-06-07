@@ -1,4 +1,4 @@
-package dtu.swt.course02324.spring2019.group14.frontend;
+package c02324.f19.group14.frontend.semester2_cdio_final;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

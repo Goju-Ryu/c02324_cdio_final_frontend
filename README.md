@@ -1,4 +1,4 @@
-# frontend
+# semester2_cdio_final
 
 A new Flutter project.
 
