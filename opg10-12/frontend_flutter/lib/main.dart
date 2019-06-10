@@ -43,7 +43,7 @@ class _HelloWorldState extends State<HelloWorld> {
 
   @override
   Widget build(BuildContext context){
-    double c_width = MediaQuery.of(context).size.width*0.8;
+    double c_width = MediaQuery.of(context).size.width*0.8; //width of screen
 
     return
     Container(
@@ -53,9 +53,14 @@ class _HelloWorldState extends State<HelloWorld> {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          Text(widget.title, style: TextStyle(color: Colors.amberAccent)),
+          Text(widget.title, style: TextStyle(color: Colors.amberAccent, decoration: TextDecoration.none)),
           SizedBox(height: 50),
-          buildMessage()
+          Expanded(
+            flex: 1,
+            child: SingleChildScrollView(
+              child: _buildMessage(),
+            )
+          )
         ],
       )
     );
@@ -63,23 +68,26 @@ class _HelloWorldState extends State<HelloWorld> {
 }
 
 
-Widget buildMessage() {
+Widget _buildMessage() {
   return
-  FutureBuilder<Message>( //TODO move this out of the builder, maybe stateful with load button?
+  FutureBuilder<Message>(
     future: fetchMessage(),
     builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return Text(snapshot.data.msg);
-      } else if (snapshot.hasError) {
+       if (snapshot.hasError) {
+         print(snapshot.error.toString());
         return Text(
           snapshot.error.toString(),
           style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.normal,
+              decoration: TextDecoration.none,
               color: Colors.red
           ),
         );
-      }
+      } else if (snapshot.hasData) {
+         return Text(snapshot.data.msg);
+       }
 
       //by default, show a loading spinner
       return CircularProgressIndicator();
@@ -88,14 +96,15 @@ Widget buildMessage() {
 }
 
 Future<Message> fetchMessage() async{
-  final response = await http.get('http://localhost:8080/main.dart/rest/hello');
+  final response = await http.get('http://10.0.2.2:8080');//The '10.0.2.2' is the address of the local host
 
   if (response.statusCode == 200) {
     //if server returns okay
     return Message.fromJson(json.decode(response.body));
   } else {
     //if response was not okay, throw an error
-    print("error in fetchMessage");
+    print('Error in fetchMessage');
+    print (response.body);
     throw Exception('Failed to load Message');
   }
 }
@@ -103,11 +112,11 @@ Future<Message> fetchMessage() async{
 class Message {
   final String msg;
 
-  Message ({this.msg});
+  Message (this.msg);
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-      msg: json['msg']
+      json['message'],
     );
   }
 }

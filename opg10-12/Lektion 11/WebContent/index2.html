@@ -8,6 +8,8 @@
 $(function() { // Sikrer sig at dokumentet er indlæst, 
 			   // før click handlers håndteres
 	$('#hellobutton').click(function() { //Sætter en click handler på knappen
+	    document.write("clicked");
+	    $('#hellobutton').
 			$.ajax({				//Indleder et asynkront ajax kald
 				url : 'rest/hello',	//specificerer endpointet
 				type : 'GET',	//Typen af HTTP requestet (GET er default)
@@ -22,6 +24,6 @@ $(function() { // Sikrer sig at dokumentet er indlæst,
 </head>
 <body>
 <button id="hellobutton">Hello2</button>
-<div id="mydiv">Tryk på knappen for at skifte teksten1</div> 
+<div id="mydiv" >Tryk på knappen for at skifte teksten1</div>
 </body>
 </html>

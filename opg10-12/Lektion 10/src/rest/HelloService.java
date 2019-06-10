@@ -24,7 +24,7 @@ public class HelloService {
 
 	private JsonObject get () {
 		JsonObject hello = new JsonObject();
-		hello.addProperty("Message", "Hello World!");
+		hello.addProperty("message", "Hello World!");
 		return hello;
 	}
 }
