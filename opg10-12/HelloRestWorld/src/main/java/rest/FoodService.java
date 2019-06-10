@@ -3,10 +3,12 @@ package rest;
 import Technical_Services.ECategory;
 import Technical_Services.ELocation;
 import Technical_Services.FoodDTO;
+import Technical_Services.IFoodDTO;
 import com.google.gson.JsonObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -17,13 +19,8 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class FoodService {
-    //This method should return a specified food
-    @GET
-    @Path("{id}")
-    public String getFood(@PathParam("id") int id){
-        Map<Integer, FoodDTO> foodDTOMap = new HashMap<>();
-
-
+    static Map<Integer, FoodDTO> foodDTOMap = new HashMap<>();
+    static {
         FoodDTO food1 = new FoodDTO();
         food1.setID(1);
         food1.setName("Smør");
@@ -31,6 +28,16 @@ public class FoodService {
         food1.setCategory(ECategory.Dairy);
         food1.setLocation(ELocation.Fridge);
         foodDTOMap.put(1, food1);
+    }
+
+
+    //This method should return a specified food
+    @GET
+    @Path("{id}")
+    public String getFood(@PathParam("id") int id){
+
+
+
 
         FoodDTO food = foodDTOMap.get(id);
         JsonObject jsonObject = new JsonObject();
@@ -43,7 +50,18 @@ public class FoodService {
         jsonObject.addProperty("location", foodLoc);
         System.out.println(jsonObject.toString());
         return jsonObject.toString();
-
+    }
+//Should be fine? not sure how to test it.
+    @POST
+    public Response createFood(FoodDTO foodDTO){
+        if(foodDTOMap.putIfAbsent(foodDTO.getID(), foodDTO) == null){
+            return Response.ok("Creation succeeded!").build();
+        }else{
+            Response response1 = Response.status(Response.Status.BAD_REQUEST)
+                    .entity("ID: " + foodDTO.getID() + " already in use!")
+                    .build();
+            throw new WebApplicationException(response1);
+        }
     }
 
 }
