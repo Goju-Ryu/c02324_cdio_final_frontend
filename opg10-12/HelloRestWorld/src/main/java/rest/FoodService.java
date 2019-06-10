@@ -51,9 +51,10 @@ public class FoodService {
         System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
-//Should be fine? not sure how to test it.
+
     @POST
     public Response createFood(FoodDTO foodDTO){
+        System.out.println("Post succeeded!");
         if(foodDTOMap.putIfAbsent(foodDTO.getID(), foodDTO) == null){
             return Response.ok("Creation succeeded!").build();
         }else{
