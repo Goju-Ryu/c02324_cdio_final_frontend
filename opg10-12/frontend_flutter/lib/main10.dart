@@ -1,8 +1,17 @@
+//*****************************************
+//The contents of this file is based on the following entry in the Flutter cookbook
+//https://flutter.dev/docs/cookbook/networking/fetch-data
+//*****************************************
+
+
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+final routes = {
+  '/': (BuildContext buildContext) => new HelloWorld()
+};
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,7 +32,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: HelloWorld(title: "This is your message!"),
+      home: new Scaffold (
+        appBar: AppBar(title: Text("Hello, World!"),),
+        body: HelloWorld(title: "This is your message!")
+      ),
     );
   }
 }
@@ -53,7 +65,14 @@ class _HelloWorldState extends State<HelloWorld> {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          Text(widget.title, style: TextStyle(color: Colors.amberAccent, decoration: TextDecoration.none)),
+          Text(widget.title,
+              style: TextStyle(
+                  color: Colors.amberAccent,
+                  fontSize: 36,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.bold
+              )
+          ),
           SizedBox(height: 50),
           Expanded(
             flex: 1,
@@ -96,7 +115,11 @@ Widget _buildMessage() {
 }
 
 Future<Message> fetchMessage() async{
-  final response = await http.get('http://10.0.2.2:8080');//The '10.0.2.2' is the address of the local host
+  final response = await http.get(Uri.encodeFull('http://10.0.2.2:8080/rest/hello'),
+        headers: {
+          'Accept': 'Aplications/json',
+        },
+      );//The '10.0.2.2' is the address of the local host
 
   if (response.statusCode == 200) {
     //if server returns okay
