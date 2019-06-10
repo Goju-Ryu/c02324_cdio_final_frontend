@@ -13,11 +13,12 @@ import com.google.gson.JsonObject;
 public class HelloService {
 
     @GET
-    public JsonObject helloWorld(){
-        System.out.println("Hello world! This was a GET request!");
+    @Produces("Applications/json")
+    public String helloWorld(){
+        System.out.println("Got GET request!");
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("msg", "Hello World!");
-        return jsonObject;
+        jsonObject.addProperty("msg", "Hello, World!");
+        return jsonObject.toString();
     }
 
 }

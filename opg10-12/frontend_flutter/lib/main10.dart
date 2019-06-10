@@ -55,7 +55,7 @@ class _HelloWorldState extends State<HelloWorld> {
 
   @override
   Widget build(BuildContext context){
-    double c_width = MediaQuery.of(context).size.width*0.8; //width of screen
+    double c_width = MediaQuery.of(context).size.width*0.8; //80% width of screen
 
     return
     Container(
@@ -78,7 +78,7 @@ class _HelloWorldState extends State<HelloWorld> {
             flex: 1,
             child: SingleChildScrollView(
               child: _buildMessage(),
-            )
+            ),
           )
         ],
       )
@@ -116,9 +116,9 @@ Widget _buildMessage() {
 
 Future<Message> fetchMessage() async{
   final response = await http.get(Uri.encodeFull('http://10.0.2.2:8080/rest/hello'),
-        headers: {
-          'Accept': 'Aplications/json',
-        },
+        /*headers: {
+          'Accept': 'Applications/json',
+        },*///TODO: reimplement or delete
       );//The '10.0.2.2' is the address of the local host
 
   if (response.statusCode == 200) {
@@ -139,7 +139,7 @@ class Message {
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-      json['message'],
+      json['msg'],
     );
   }
 }
