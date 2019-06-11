@@ -56,12 +56,24 @@ public class FoodService {
     public Response createFood(FoodDTO foodDTO){
         System.out.println("Post succeeded!");
         if(foodDTOMap.putIfAbsent(foodDTO.getID(), foodDTO) == null){
-            return Response.ok("Creation succeeded!").build();
+            return Response.status(201).entity("Food created!").build();
         }else{
             Response response1 = Response.status(Response.Status.BAD_REQUEST)
                     .entity("ID: " + foodDTO.getID() + " already in use!")
                     .build();
             throw new WebApplicationException(response1);
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteFood(@PathParam("id") int id){
+        IFoodDTO food = foodDTOMap.get(id);
+        if(food != null){
+            foodDTOMap.remove(id);
+            return Response.status(200).entity("Deletion successful").build();
+        }else{
+            return Response.status(404).entity("Food not found..").build();
         }
     }
 
