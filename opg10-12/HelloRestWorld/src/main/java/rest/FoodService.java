@@ -35,10 +35,6 @@ public class FoodService {
     @GET
     @Path("{id}")
     public String getFood(@PathParam("id") int id){
-
-
-
-
         FoodDTO food = foodDTOMap.get(id);
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", food.getID());
