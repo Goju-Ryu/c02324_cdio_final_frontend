@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<Message> get() async{
+Future<Food> get() async{
   final response = await http.get(
     Uri.encodeFull('http://10.0.2.2:8080/rest/hello/1'),
       headers:{
@@ -13,7 +12,7 @@ Future<Message> get() async{
 
   if (response.statusCode == 200) {
     //if server returns okay
-    return Message.fromJson(json.decode(response.body));
+    return Food.fromJson(json.decode(response.body));
   } else {
     //if response was not okay, throw an error
     print('Error in fetchMessage');
@@ -67,17 +66,17 @@ Future<Post> sendPost(String url, {Map body}) async{
 }
 
 
-class Message {
+class Food {
   final int id;
   final String name, date, foodCat, foodLoc, userName;
   final double amount;
 
-  Message({this.id, this.name, this.date, this.foodCat, this.foodLoc, this.userName, this.amount});
+  Food({this.id, this.name, this.date, this.foodCat, this.foodLoc, this.userName, this.amount});
 
 
 
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
+  factory Food.fromJson(Map<String, dynamic> json) {
+    return Food(
       id: json['id'] == null ? null : json['id'],
       name: json['name'] == null ? null : json['name'],
       date: json['date'] == null ? null : json['date'],
@@ -88,6 +87,42 @@ class Message {
     );
   }
 }
+
+class Put {
+  final int id;
+  final String name, date, foodCat, foodLoc, userName;
+  final double amount;
+
+  Put(this.id, {this.name, this.date, this.foodCat, this.foodLoc, this.userName, this.amount});
+
+  factory Put.fromJson(id, Map<String, dynamic> json){
+    return Put(
+        id,
+        name: json['name'],
+        date: json['date'],
+        foodCat: json['foodCat'],
+        foodLoc: json['foodLoc'],
+        userName: json['userName'],
+        amount: json['amount']
+    );
+
+}
+
+Future<Put> sendPut(String url, id, {Map<String, String> headers, String body, Encoding encoding}){
+
+    return http.put(url, headers: headers).then((http.Response response){
+      final int statusCode = response.statusCode;
+
+      if (statusCode != 200){
+        throw Exception("Something went wrong");
+      }
+      return Put.fromJson(id, json.decode(response.body));
+
+    });
+
+
+}
+
 
 
 /*
