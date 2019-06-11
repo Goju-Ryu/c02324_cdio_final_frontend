@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:frontend_flutter/rest.dart' as rest;
 
 void main() => runApp(new MyApp());
 
@@ -128,20 +129,20 @@ class GetPage extends StatefulWidget{
 class _GetPageState extends State<GetPage> {
   bool _getList = true;
 
-  void setGetList(bool b){
+  void setGetList(bool b) {
     setState(() {
       _getList = b;
     });
   }
 
-  void search(){
+  void search() {
     //todo: use the rest search function
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_getList) {
-      new Center (
+    return
+    new Center (
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,39 +153,39 @@ class _GetPageState extends State<GetPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 new Checkbox(value: _getList, onChanged: setGetList),
-                new Row (
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    new Text("Enter id:"),
-                    new TextField(),
-                    new FlatButton(onPressed: search, child: new Text("Search"))
-                    ]
-                )
+                _getList ?
+                new FlatButton(
+                    onPressed: search, child: new Text("Search"))
+                    :
+                new Text("test") //TODO: replace with search bar
               ],
             ),
-            new ListView(
+
               //TODO: implement the food being displayed (create food view?)
-            )
+
           ],
         )
-      );
-    } else {
-      return new Container();//TODO: make the single food view
-
-    };
+    );
   }
 }
 
 class FoodLineDisplay extends StatelessWidget {
-  
+  rest.Food food;
 
-
+  FoodLineDisplay(this.food);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return null;
+    return new Row(
+      children: <Widget>[
+        new Text(food.id.toString()),
+        new SizedBox(width: 20),
+        new Text(food.name),
+        new SizedBox(width: 10),
+        new Text(food.amount.toString())
+      ],
+    );
   }
 }
 
