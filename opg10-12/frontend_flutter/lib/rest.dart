@@ -22,6 +22,51 @@ Future<Message> get() async{
   }
 }
 
+class Post {
+  final int id;
+  final String name, date, foodCat, foodLoc, userName;
+  final double amount;
+
+  Post({this.id, this.name, this.date, this.foodCat, this.foodLoc, this.userName, this.amount});
+
+  factory Post.fromJson(Map<String, dynamic> json){
+    return Post(
+      id: json['id'],
+      name: json['name'],
+      date: json['date'],
+      foodCat: json['foodCat'],
+      foodLoc: json['foodLoc'],
+      userName: json['userName'],
+      amount: json['amount']
+    );
+  }
+
+  Map toMap(){
+    var map = new Map<String, dynamic>();
+    map['id'] = id;
+    map['name'] = name;
+    map['date'] = date;
+    map['foodCat'] = foodCat;
+    map['foodLoc'] = foodLoc;
+    map['userName'] = userName;
+    map['amount'] = amount;
+
+    return map;
+  }
+}
+
+Future<Post> sendPost(String url, {Map body}) async{
+    return http.post(url, body: body).then((http.Response response) {
+      final int statusCode = response.statusCode;
+
+      if (statusCode != 201){
+        throw Exception("Something went wrong");
+      }
+      return Post.fromJson(json.decode(response.body));
+    });
+}
+
+
 class Message {
   final int id;
   final String name, date, foodCat, foodLoc, userName;
@@ -33,15 +78,17 @@ class Message {
 
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
-      id: json['id'], name: json['name'],
-      date: json['date'], foodCat: json['foodCat'],
-      foodLoc: json['foodLoc'], userName: json['userName'],
-      amount: json['amount']
+      id: json['id'] == null ? null : json['id'],
+      name: json['name'] == null ? null : json['name'],
+      date: json['date'] == null ? null : json['date'],
+      foodCat: json['foodCat'] == null ? null : json['foodCat'],
+      foodLoc: json['foodLoc'] == null ? null : json['foodLoc'],
+      userName: json['userName'] == null ? null : json['userName'],
+      amount: json['amount'] == null ? null : json['amount']
     );
   }
 }
 
-Message message1 = new Message();
 
 /*
 FoodDTO food = foodDTOMap.get(id);
