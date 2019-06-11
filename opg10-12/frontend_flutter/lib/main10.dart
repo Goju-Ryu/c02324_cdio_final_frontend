@@ -115,7 +115,7 @@ Widget _buildMessage() {
 }
 
 Future<Message> fetchMessage() async{
-  final response = await http.get(Uri.encodeFull('http://10.0.2.2:8080/rest/hello'),
+  final response = await http.get(Uri.encodeFull('http://10.0.2.2:8080/rest/hello/1'),
         /*headers: {
           'Accept': 'Applications/json',
         },*///TODO: reimplement or delete
