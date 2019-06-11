@@ -18,6 +18,7 @@ public class HelloService {
         System.out.println("Got GET request!");
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("msg", "Hello, World!");
+        System.out.println(jsonObject.toString());
         return jsonObject.toString();
     }
 
