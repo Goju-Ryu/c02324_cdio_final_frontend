@@ -128,6 +128,7 @@ class GetPage extends StatefulWidget{
 
 class _GetPageState extends State<GetPage> {
   bool _getList = true;
+  final TextEditingController textController = TextEditingController();
 
   void setGetList(bool b) {
     setState(() {
@@ -137,35 +138,56 @@ class _GetPageState extends State<GetPage> {
 
   void search() {
     //todo: use the rest search function
+    if (_getList) {
+
+    } else {
+
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return
-    new Center (
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            new Text("Get your food!", style: MyHeadline,),
-            new Row (
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                new Checkbox(value: _getList, onChanged: setGetList),
-                _getList ?
-                new FlatButton(
-                    onPressed: search, child: new Text("Search"))
-                    :
-                new Text("test") //TODO: replace with search bar
-              ],
-            ),
+      new Center (
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              new Text("Get your food!", style: MyHeadline,),
+              new Row (
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  new Checkbox(value: _getList, onChanged: setGetList),
+                  new Flexible( //This is needed for the row to determine the size of textField. Without it an Error occurs and it isn't displayed.
+                      flex: 1,
+                      child: TextField(
+                        decoration: InputDecoration (
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter id'
+                        ),
+                        controller: textController,
+                      )
+                  ),
+                  new RaisedButton(onPressed: search,
+                    child: new Text("Search"),
+                    shape: new RoundedRectangleBorder(),
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
 
               //TODO: implement the food being displayed (create food view?)
 
-          ],
-        )
-    );
+            ],
+          )
+      );
+  }
+
+  @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
   }
 }
 
