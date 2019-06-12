@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/rest.dart' as rest;
+import 'package:provider/provider.dart';
 
 void main() => runApp(new MyApp());
 
@@ -42,7 +40,7 @@ class _HomeState extends State<Home>{
         return new HomePage();
       }
       case (_EWindow.getFood): {
-        return new GetPage();
+        return new ChangeNotifierProvider( builder: (_) => GetList(new List<FoodLineDisplay>(0)), child: new GetPage());
       }
       case (_EWindow.updateFood): {
         return new UpdatePage();
@@ -79,7 +77,6 @@ class _HomeState extends State<Home>{
       );
   } // build
 }// class
-
 
 
 class HomePage extends StatelessWidget{
@@ -147,6 +144,7 @@ class _GetPageState extends State<GetPage> {
 
   @override
   Widget build(BuildContext context) {
+    final foodList = Provider.of<GetList>(context); //TODO: initialize properly
     return
       new Center (
           child: new Column(
@@ -169,14 +167,23 @@ class _GetPageState extends State<GetPage> {
                         controller: textController,
                       )
                   ),
-                  new RaisedButton(onPressed: search,
+                  new RaisedButton(
+                    onPressed: () {
+                      if (_getList) {
+                        foodList.setGetList(null);//TODO: insert appropriate rest command
+                      } else {
+                        foodList.setGetList(null);
+                      }
+                    }, //onPressed
                     child: new Text("Search"),
                     shape: new RoundedRectangleBorder(),
                     color: Colors.blue,
                   ),
                 ],
               ),
-
+              new ListView(
+                children: foodList.getGetList(),
+              ),
               //TODO: implement the food being displayed (create food view?)
 
             ],
@@ -191,8 +198,25 @@ class _GetPageState extends State<GetPage> {
   }
 }
 
+class GetList with ChangeNotifier {
+  List<FoodLineDisplay> _list;
+
+  GetList(this._list);
+
+  List<FoodLineDisplay> getGetList() {
+    return _list;
+  }
+
+  void setGetList(List<FoodLineDisplay> list) {
+    _list = list;
+    notifyListeners();
+  }
+
+
+}
+
 class FoodLineDisplay extends StatelessWidget {
-  rest.Food food;
+  final rest.Food food;
 
   FoodLineDisplay(this.food);
 
