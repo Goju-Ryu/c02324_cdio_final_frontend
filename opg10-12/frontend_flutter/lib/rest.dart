@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
-Future<Food> get() async{
+Future<Food> get(String userName, int foodId) async{
   final response = await http.get(
-    Uri.encodeFull('http://10.0.2.2:8080/rest/hello/1'),
+    Uri.encodeFull('http://10.0.2.2:8080/rest/food/user/' + userName + '/get/' + foodId.toString()),
       headers:{
         "Accept": "application/json"
       }
@@ -20,6 +20,27 @@ Future<Food> get() async{
     throw Exception('Failed to load Message');
   }
 }
+
+Future<List<Food>> getList (String userName) async{
+  final response = await http.get(
+    Uri.encodeFull('http://10.0.2.2:8080/rest/food/user/' + userName + '/get'),
+    headers:{
+      "Accept": "application/json"
+    });
+
+
+  if (response.statusCode == 200) {
+    //if server returns okay
+    Iterable foods = json.decode(response.body); //Henrik
+    return foods.map((foodElement) => Food.fromJson(foodElement)).toList(); //Henrik
+  } else {
+    //if response was not okay, throw an error
+    print('Error in fetchMessage');
+    print (response.body);
+    throw Exception('Failed to load Message');
+  }
+}
+
 
 class Post {
   final int id;
@@ -54,8 +75,8 @@ class Post {
   }
 }
 
-Future<Post> sendPost(String url, {Map body}) async{
-    return http.post(url, body: body).then((http.Response response) {
+Future<Post> sendPost(String userName, {Map body}) async{
+    return http.post('http://10.0.2.2:8080/rest/food/user/' + userName, body: body).then((http.Response response) {
       final int statusCode = response.statusCode;
 
       if (statusCode != 201){
@@ -63,6 +84,28 @@ Future<Post> sendPost(String url, {Map body}) async{
       }
       return Post.fromJson(json.decode(response.body));
     });
+}
+
+Future<String> deleteFood(int id, String userName) async{
+  return http.delete('http://10.0.2.2:8080/rest/food/user/' + userName + '/' + id.toString()).then((http.Response response){
+    final int statusCode = response.statusCode;
+
+    if (statusCode != 200){
+      throw Exception("Something went wrong");
+    }
+    return "Food successfully deleted";//Post.fromJson(json.decode(response.body));
+  });
+}
+
+Future<String> deleteAllFoods(String userName) async{
+  return http.delete('http://10.0.2.2:8080/rest/food/users/' + userName + '/get').then((http.Response response){
+    final int statusCode = response.statusCode;
+
+    if (statusCode != 200){
+      throw Exception("Something went wrong");
+    }
+    return "All your foods have successfully been deleted. Feel hungry yet?"; //Post.fromJson(json.decode(response.body));
+  });
 }
 
 
@@ -96,9 +139,9 @@ class Put {
   Put(this.id,
       {this.name, this.date, this.foodCat, this.foodLoc, this.userName, this.amount});
 
-  factory Put.fromJson(id, Map<String, dynamic> json){
+  factory Put.fromJson(userName, Map<String, dynamic> json){
     return Put(
-        id,
+        userName,
         name: json['name'],
         date: json['date'],
         foodCat: json['foodCat'],
@@ -109,15 +152,15 @@ class Put {
   }
 }
 
-Future<Put> sendPut(String url, id, {Map<String, String> headers, String body, Encoding encoding}){
+Future<Put> sendPut(String userName, {Map<String, String> headers, String body, Encoding encoding}){
 
-    return http.put(url, headers: headers).then((http.Response response){
+    return http.put('http://10.0.2.2:8080/rest/food/users/' + userName + '/get', headers: headers).then((http.Response response){
       final int statusCode = response.statusCode;
 
       if (statusCode != 200){
         throw Exception("Something went wrong");
       }
-      return Put.fromJson(id, json.decode(response.body));
+      return Put.fromJson(userName, json.decode(response.body));
 
     });
 
