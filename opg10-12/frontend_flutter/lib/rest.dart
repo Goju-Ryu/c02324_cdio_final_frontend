@@ -75,14 +75,17 @@ class Post {
   }
 }
 
-Future<Post> sendPost(String userName, {Map body}) async{
-    return http.post('http://10.0.2.2:8080/rest/food/user/' + userName, body: body).then((http.Response response) {
+Future<String> sendPost(String userName, {Map body}) async{
+    return http.post('http://10.0.2.2:8080/rest/food/user/', body: body).then((http.Response response) {
       final int statusCode = response.statusCode;
 
-      if (statusCode != 201){
-        throw Exception("Something went wrong");
-      }
-      return Post.fromJson(json.decode(response.body));
+      if (statusCode == 201){
+        return "Food successfully created";
+      } else {
+        print('Error in fetchMessage');
+        print(response.body);
+        throw Exception('Failed to load Message');
+        }
     });
 }
 
@@ -90,10 +93,15 @@ Future<String> deleteFood(int id, String userName) async{
   return http.delete('http://10.0.2.2:8080/rest/food/user/' + userName + '/' + id.toString()).then((http.Response response){
     final int statusCode = response.statusCode;
 
-    if (statusCode != 200){
+    if (statusCode == 200){
+      return "Food successfully deleted";//Post.fromJson(json.decode(response.body));
+
+    } else {
+      print("Error in deletion");
+      print(response.body);
       throw Exception("Something went wrong");
     }
-    return "Food successfully deleted";//Post.fromJson(json.decode(response.body));
+
   });
 }
 
@@ -101,10 +109,14 @@ Future<String> deleteAllFoods(String userName) async{
   return http.delete('http://10.0.2.2:8080/rest/food/users/' + userName + '/get').then((http.Response response){
     final int statusCode = response.statusCode;
 
-    if (statusCode != 200){
+    if (statusCode == 200){
+      return "All your foods have successfully been deleted. Feel hungry yet?"; //Post.fromJson(json.decode(response.body));
+    } else{
+      print("Error in deletion");
+      print(response.body);
       throw Exception("Something went wrong");
     }
-    return "All your foods have successfully been deleted. Feel hungry yet?"; //Post.fromJson(json.decode(response.body));
+
   });
 }
 
@@ -129,6 +141,7 @@ class Food {
       amount: json['amount'] == null ? null : json['amount']
     );
   }
+
 }
 
 class Put {
@@ -157,15 +170,20 @@ Future<Put> sendPut(String userName, {Map<String, String> headers, String body, 
     return http.put('http://10.0.2.2:8080/rest/food/users/' + userName + '/get', headers: headers).then((http.Response response){
       final int statusCode = response.statusCode;
 
-      if (statusCode != 200){
+      if (statusCode == 200){
+        return Put.fromJson(userName, json.decode(response.body));
+      } else{
+        print("Error when updating");
+        print(response.body);
         throw Exception("Something went wrong");
       }
-      return Put.fromJson(userName, json.decode(response.body));
+
 
     });
 
 
 }
+
 
 
 
