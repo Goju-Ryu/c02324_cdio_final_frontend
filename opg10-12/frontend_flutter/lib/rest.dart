@@ -7,22 +7,23 @@ class Food {
   final int id;
   final String name, date, foodCat, foodLoc, userName;
 
-  Food(
-      {this.id,
+  Food({
+      this.id,
       this.name,
       this.date,
       this.foodCat,
       this.foodLoc,
-      this.userName});
+      this.userName
+  });
 
   factory Food.fromJson(Map<String, dynamic> json) {
     return Food(
-      id: json['id'] == null ? null : json['id'],
-      name: json['name'] == null ? null : json['name'],
-      date: json['expDate'] == null ? null : json['expDate'],
-      foodCat: json['category'] == null ? null : json['category'],
-      foodLoc: json['location'] == null ? null : json['location'],
-      userName: json['userName'] == null ? null : json['userName'],
+      id: json['id'],
+      name: json['name'],
+      date: json['expDate'],
+      foodCat: json['category'],
+      foodLoc: json['location'],
+      userName: json['userName'],
     );
   }
 }
