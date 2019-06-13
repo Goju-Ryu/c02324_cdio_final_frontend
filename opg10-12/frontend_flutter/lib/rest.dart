@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 
 Future<Food> get(String userName, int foodId) async{
   final response = await http.get(
-    Uri.encodeFull('http://10.0.2.2:8080/rest/food/user/' + userName + '/get/' + foodId.toString()),
-      headers:{
+      Uri.encodeFull('http://10.0.2.2:8080/rest/food/user/' + userName + '/get/' + foodId.toString()),
+      /*headers:{
         "Accept": "application/json"
-      }
+      }*/
   );
 
   if (response.statusCode == 200) {

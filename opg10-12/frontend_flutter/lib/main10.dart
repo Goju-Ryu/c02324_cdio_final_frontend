@@ -94,7 +94,7 @@ Widget _buildMessage() {
     builder: (context, snapshot) {
        if (snapshot.hasError) {
          print(snapshot.error.toString());
-         return Text(
+        return Text(
           snapshot.error.toString(),
           style: TextStyle(
               fontSize: 24,
@@ -103,7 +103,7 @@ Widget _buildMessage() {
               decoration: TextDecoration.none,
               color: Colors.red
           ),
-         );
+        );
       } else if (snapshot.hasData) {
          print("Success");
          return Text(snapshot.data.msg);
