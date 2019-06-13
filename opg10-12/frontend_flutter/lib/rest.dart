@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
+final String _root = 'http://10.0.2.2:8080/rest/food/user/';
 
 class Food {
   final int id;
@@ -30,12 +30,20 @@ class Food {
 }
 
 Future<Food> get(String userName, int foodId) async {
+
+  String url = _root + userName + '/get/' + foodId.toString();
+  Map<String, String> headers = {"Content-type" : "application/json"};
+
+  final response = await http.get(url, headers: headers);
+
+  /*
   final response = await http.get(
-      Uri.encodeFull('http://10.0.2.2:8080/rest/food/user/' +
+      Uri.encodeFull(_root +
           userName +
           '/get/' +
           foodId.toString()),
       headers: {"Accept": "application/json"});
+*/
 
   if (response.statusCode == 200) {
     //404
@@ -52,7 +60,7 @@ Future<Food> get(String userName, int foodId) async {
 
 Future<List<Food>> getList(String userName) async {
   print("Kommer den her bd?");
-  String url = 'http://10.0.2.2:8080/rest/food/user/' + userName + '/get';
+  String url = _root + userName + '/get';
   Map<String, String> headers = {"Content-type" : "application/json"};
 
   final response =  await http.get(url, headers: headers);
@@ -84,7 +92,7 @@ Future<List<Food>> getList(String userName) async {
 
 Future<String> sendPost(String userName, {Map body}) async {
   return http
-      .post('http://10.0.2.2:8080/rest/food/user/', body: body)
+      .post(_root, body: body)
       .then((http.Response response) {
     final int statusCode = response.statusCode;
 
@@ -102,7 +110,7 @@ Future<String> sendPost(String userName, {Map body}) async {
 
 Future<String> deleteFood(int id, String userName) async {
   return http
-      .delete('http://10.0.2.2:8080/rest/food/user/' +
+      .delete(_root +
           userName +
           '/delete/' +
           id.toString())
@@ -124,7 +132,7 @@ Future<String> deleteFood(int id, String userName) async {
 
 Future<String> deleteAllFoods(String userName, String location) async {
   return http
-      .delete('http://10.0.2.2:8080/rest/food/users/' +
+      .delete(_root +
           userName +
           '/delete/all/' +
           location)
@@ -146,7 +154,7 @@ Future<String> sendPut(
     String userName, String foodId, Map<String, String> headers) {
   return http
       .put(
-          'http://10.0.2.2:8080/rest/food/users/' + userName + '/put/' + foodId,
+          _root + userName + '/put/' + foodId,
           headers: headers)
       .then((http.Response response) {
     final int statusCode = response.statusCode;
