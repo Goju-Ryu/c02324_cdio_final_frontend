@@ -162,3 +162,17 @@ Future<String> sendPut(
     }
   });
 }
+
+/*
+FoodDTO food = foodDTOMap.get(id);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", food.getID());
+        jsonObject.addProperty("name", food.getName());
+        jsonObject.addProperty("expDate", DTS.dateToString(10, 06, 2019));
+        String foodCat = food.getCategory().toString();
+        String foodLoc = food.getLocation().toString();
+        jsonObject.addProperty("category", foodCat);
+        jsonObject.addProperty("location", foodLoc);
+        System.out.println(jsonObject.toString());
+        return jsonObject.toString();
+ */

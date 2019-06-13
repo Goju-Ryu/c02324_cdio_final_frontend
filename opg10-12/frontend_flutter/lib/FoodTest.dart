@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/rest.dart' as rest;
-import 'package:provider/provider.dart';
-
 import 'package:frontend_flutter/views/HomeView.dart';
-import 'package:frontend_flutter/views/updatePage.dart';
-import 'package:frontend_flutter/views/getPage.dart';
 import 'package:frontend_flutter/views/deletePage.dart';
-
-import 'package:frontend_flutter/styles/TextStyles.dart';
+import 'package:frontend_flutter/views/getPage.dart';
+import 'package:frontend_flutter/views/updatePage.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(new MyApp());
 
 ///Root of the app determining which view to be shown.
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -30,67 +27,74 @@ class Home extends StatefulWidget {
   _HomeState createState() => new _HomeState();
 }
 
-class _HomeState extends State<Home>{
+class _HomeState extends State<Home> {
   _EWindow _selection = _EWindow.home;
 
-  void _select(int i){
+  void _select(int i) {
     setState(() {
       _selection = _EWindow.values[i];
     });
   }
 
-  Widget _getWindow () {
+  Widget _getWindow() {
     switch (_selection) {
-      case (_EWindow.home): {
-        return new HomePage();
-      }
-      case (_EWindow.getFood): {
-        return new ChangeNotifierProvider( builder: (_) => GetList(new List<FoodLineDisplay>(0)), child: new GetPage());
-      }
-      case (_EWindow.updateFood): {
-        return new UpdatePage();
-      }
-      case (_EWindow.deleteFood): {
-        return new DeletePage();
-      }
-      default: {
-        throw new Exception("Home: _getWindow: unknown selection (_selection)");
-      }
+      case (_EWindow.home):
+        {
+          return new HomePage();
+        }
+      case (_EWindow.getFood):
+        {
+          //
+        }
+      case (_EWindow.updateFood):
+        {
+          return new UpdatePage();
+        }
+      case (_EWindow.deleteFood):
+        {
+          return new DeletePage();
+        }
+      default:
+        {
+          throw new Exception(
+              "Home: _getWindow: unknown selection (_selection)");
+        }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-      new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Food App"),
-        ),
-        bottomNavigationBar: new BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home"),),
-            BottomNavigationBarItem(icon: Icon(Icons.fastfood), title: Text("Get"),),
-            BottomNavigationBarItem(icon: Icon(Icons.update), title: Text("Update"),),
-            BottomNavigationBarItem(icon: Icon(Icons.delete), title: Text("Delete"),),
-          ],
-          unselectedItemColor: Colors.lightBlue,
-          selectedItemColor: Colors.blue,
-          currentIndex: _selection.index,
-          onTap: _select,
-        ),
-        body: _getWindow(),
-      );
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Food App"),
+      ),
+      bottomNavigationBar: new BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Home"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fastfood),
+            title: Text("Get"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.update),
+            title: Text("Update"),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.delete),
+            title: Text("Delete"),
+          ),
+        ],
+        unselectedItemColor: Colors.lightBlue,
+        selectedItemColor: Colors.blue,
+        currentIndex: _selection.index,
+        onTap: _select,
+      ),
+      body: _getWindow(),
+    );
   } // build
-}// class
+} // class
 
-
-
-
-
-
-enum _EWindow {
-  home,
-  getFood,
-  updateFood,
-  deleteFood
-}
+enum _EWindow { home, getFood, updateFood, deleteFood }
