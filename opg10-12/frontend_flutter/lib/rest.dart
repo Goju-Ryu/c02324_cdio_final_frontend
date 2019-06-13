@@ -1,27 +1,30 @@
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+
 
 class Food {
   final int id;
   final String name, date, foodCat, foodLoc, userName;
 
-  Food(
-      {this.id,
+  Food({
+      this.id,
       this.name,
       this.date,
       this.foodCat,
       this.foodLoc,
-      this.userName});
+      this.userName
+  });
 
   factory Food.fromJson(Map<String, dynamic> json) {
     return Food(
-      id: json['id'] == null ? null : json['id'],
-      name: json['name'] == null ? null : json['name'],
-      date: json['date'] == null ? null : json['date'],
-      foodCat: json['foodCat'] == null ? null : json['foodCat'],
-      foodLoc: json['foodLoc'] == null ? null : json['foodLoc'],
-      userName: json['userName'] == null ? null : json['userName'],
+      id: json['id'],
+      name: json['name'],
+      date: json['expDate'],
+      foodCat: json['category'],
+      foodLoc: json['location'],
+      userName: json['userName'],
     );
   }
 }
@@ -48,10 +51,20 @@ Future<Food> get(String userName, int foodId) async {
 }
 
 Future<List<Food>> getList(String userName) async {
+  print("Kommer den her bd?");
+  String url = 'http://10.0.2.2:8080/rest/food/user/' + userName + '/get';
+  Map<String, String> headers = {"Content-type" : "application/json"};
+
+  final response =  await http.get(url, headers: headers);
+
+  print("på den anden side.");
+  print(response != null ? response.body : "Den er null");
+/*
   final response = await http.get(
       Uri.encodeFull(
           'http://10.0.2.2:8080/rest/food/user/' + userName + '/get'),
       headers: {"Accept": "application/json"});
+*/
 
   if (response.statusCode == 200) {
     //400

@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/rest.dart' as rest;
 import 'package:provider/provider.dart';
 
+import 'package:frontend_flutter/views/HomeView.dart';
+import 'package:frontend_flutter/views/updatePage.dart';
+import 'package:frontend_flutter/views/getPage.dart';
+import 'package:frontend_flutter/views/deletePage.dart';
+
+import 'package:frontend_flutter/styles/TextStyles.dart';
+
 void main() => runApp(new MyApp());
 
 ///Root of the app determining which view to be shown.
 class MyApp extends StatelessWidget{
-
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -79,228 +84,9 @@ class _HomeState extends State<Home>{
 }// class
 
 
-class HomePage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
-    return Center(
-      child: new Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          new Text(
-            "Home",
-            style: MyHeadline,
-          ),
-          new Icon(Icons.home, size: screenWidth * 0.8, color: Colors.blueGrey,)
-        ],
-      ),
-    );
-  }
-}
-
-
-class UpdatePage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Text("Update Food");
-  }
-}
-
-class DeletePage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Text("Delete Food");
-  }
-}
-
-class GetPage extends StatefulWidget {
-  @override
-  _GetPageState createState() => new _GetPageState();
-}
-
-class _GetPageState extends State<GetPage> {
-  bool _getList = true;
-  final TextEditingController textController = TextEditingController();
-
-  void setGetList(bool b) {
-    setState(() {
-      _getList = b;
-    });
-  }
-
-  void listSearch() async {
-    final foodListState = Provider.of<GetList>(context);
-    List<FoodLineDisplay> newList = List<FoodLineDisplay>();
-    new FutureBuilder<List<rest.Food>> (
-      future: rest.getList("pur"),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          newList.add(
-              FoodLineDisplay(rest.Food(name: snapshot.error.toString())));
-          foodListState.setIsLoading(false);
-          foodListState.setGetList(newList);
-        } else if (snapshot.hasData) {
-          for (rest.Food food in snapshot.data) {
-            newList.add(new FoodLineDisplay(food));
-          }
-          foodListState.setIsLoading(false);
-          foodListState.setGetList(newList);
-        }
-
-        foodListState.setIsLoading(true);
-      },
-    );
-  }
-
-  void idSearch (int id) {
-    final foodListState = Provider.of<GetList>(context);
-    List<FoodLineDisplay> newList = List<FoodLineDisplay>();
-    new FutureBuilder<rest.Food> (
-      future: rest.get("pur", id),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          newList.add(
-              FoodLineDisplay(rest.Food(name: snapshot.error.toString())));
-          foodListState.setIsLoading(false);
-          foodListState.setGetList(newList);
-        } else if (snapshot.hasData) {
-          newList.add(new FoodLineDisplay(snapshot.data));
-          foodListState.setIsLoading(false);
-          foodListState.setGetList(newList);
-        }
-
-        foodListState.setIsLoading(true);
-      },
-    );
-  }
 
 
 
-  @override
-  Widget build(BuildContext context) {
-    final foodListState = Provider.of<GetList>(context);
-    return
-      new Center (
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Text("Get your food!", style: MyHeadline,),
-              new Row (
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(width: 80, child: new Text("Check to search for all food: ")),
-                  new Checkbox(value: _getList, onChanged: setGetList),
-                  new Flexible( //This is needed for the row to determine the size of textField. Without it an Error occurs and it isn't displayed.
-                      flex: 1,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter id'
-                        ),
-                        keyboardType: TextInputType.number,
-                        controller: textController,
-                      )
-                  ),
-                  new RaisedButton(
-                    onPressed: () {
-                      if (_getList) {
-                        listSearch();
-                      } else {
-                        idSearch(int.parse(textController.text));
-                      }
-                    }, //onPressed
-                    child: new Text("Search"),
-                    shape: new RoundedRectangleBorder(),
-                    color: Colors.blue,
-                  ),
-                ],
-              ),
-              new Expanded(
-                child: new FoodList()
-              ),
-              //TODO: implement the food being displayed (create food view?)
-
-            ],
-          )
-      );
-  }
-
-  @override
-  void dispose() {
-    textController.dispose();
-    super.dispose();
-  }
-
-}
-
-class FoodList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final foodList = Provider.of<GetList>(context);
-    if (foodList.getIsLoading()){
-      return new CircularProgressIndicator();
-    } else {
-      return new ListView(
-        children: foodList.getGetList(),
-      );
-    }
-  }
-
-}
-
-class GetList with ChangeNotifier {
-  List<FoodLineDisplay> _list;
-  bool _isLoading;
-
-  GetList(this._list) {
-    this._isLoading = false;
-  }
-
-  List<FoodLineDisplay> getGetList() {
-    return _list;
-  }
-
-  void setGetList(List<FoodLineDisplay> list) {
-    _list = list;
-    notifyListeners();
-  }
-
-  void setIsLoading(bool isLoading) {
-    this._isLoading = isLoading;
-  }
-
-  bool getIsLoading() {
-    return this._isLoading;
-  }
-
-}
-
-class FoodLineDisplay extends StatelessWidget {
-  final rest.Food food;
-
-  FoodLineDisplay(this.food);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Row(
-      children: <Widget>[
-        new Text(food.id.toString()),
-        new SizedBox(width: 20),
-        new Text(food.name),
-        new SizedBox(width: 10),
-        new Text(food.amount.toString())
-      ],
-    );
-  }
-}
 
 enum _EWindow {
   home,
@@ -308,10 +94,3 @@ enum _EWindow {
   updateFood,
   deleteFood
 }
-
-const TextStyle MyHeadline = TextStyle(
-  color: Colors.amberAccent,
-  fontSize: 36,
-  decoration: TextDecoration.none,
-  fontWeight: FontWeight.bold
-);
