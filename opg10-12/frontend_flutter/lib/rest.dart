@@ -22,23 +22,29 @@ Future<Food> get(String userName, int foodId) async{
 }
 
 Future<List<Food>> getList (String userName) async{
-  final response = await http.get(
-    Uri.encodeFull('http://10.0.2.2:8080/rest/food/user/' + userName + '/get'),
-    headers:{
-      "Accept": "application/json"
-    });
+  print("Entering rest");
 
+    final response = await http.get(
+        Uri.encodeFull(
+            'http://10.0.2.2:8080/rest/food/user/' + userName + '/get'),
+        headers: {
+          "Accept": "application/json"
+        }
+    );
 
-  if (response.statusCode == 200) {
-    //if server returns okay
-    Iterable foods = json.decode(response.body); //Henrik
-    return foods.map((foodElement) => Food.fromJson(foodElement)).toList(); //Henrik
-  } else {
-    //if response was not okay, throw an error
-    print('Error in fetchMessage');
-    print (response.body);
-    throw Exception('Failed to load Message');
-  }
+    if (response.statusCode == 200) {
+      //if server returns okay
+      print("Got data in rest: " + response.body);
+      Iterable foods = json.decode(response.body); //Henrik
+      foods.forEach(print);
+      return foods.map((foodElement) => Food.fromJson(foodElement)).toList(); //Henrik
+    } else {
+      //if response was not okay, throw an error
+      print('Error in fetchMessage');
+      print (response.body);
+      throw Exception('Failed to load Message');
+    }
+
 }
 
 

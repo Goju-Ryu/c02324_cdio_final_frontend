@@ -105,10 +105,12 @@ Widget _buildMessage() {
           ),
          );
       } else if (snapshot.hasData) {
+         print("Success");
          return Text(snapshot.data.msg);
        }
 
       //by default, show a loading spinner
+       print("Loading");
       return CircularProgressIndicator();
     },
   );
