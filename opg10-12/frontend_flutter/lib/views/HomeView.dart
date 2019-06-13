@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/styles/TextStyles.dart';
+import 'package:frontend_flutter/util/TextStyles.dart';
 
 class HomePage extends StatelessWidget {
 

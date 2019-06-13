@@ -7,7 +7,8 @@ import 'package:frontend_flutter/views/updatePage.dart';
 import 'package:frontend_flutter/views/getPage.dart';
 import 'package:frontend_flutter/views/deletePage.dart';
 
-import 'package:frontend_flutter/styles/TextStyles.dart';
+import 'package:frontend_flutter/util/TextStyles.dart';
+import 'package:frontend_flutter/util/sharedStates.dart';
 
 void main() => runApp(new MyApp());
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget{
         primarySwatch: Colors.blue,
       ),
       title: "Proof of concept food app",
-      home: new Home(),
+      home: ChangeNotifierProvider(builder: (_) => AppState("Pur"), child: new Home()),
     );
   }
 }

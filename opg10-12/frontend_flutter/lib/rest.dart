@@ -112,7 +112,7 @@ Future<String> sendPost(String userName, {Map body}) async {
 
 Future<String> deleteFood(int foodId, String userName) async {
   String url = _root + userName + '/delete/' + foodId.toString();
-
+  print(url);
   final response = await http.delete(url);
 
   /*

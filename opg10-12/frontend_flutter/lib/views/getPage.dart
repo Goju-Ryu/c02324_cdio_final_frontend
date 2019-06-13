@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 
 import 'package:frontend_flutter/rest.dart' as rest;
-import 'package:frontend_flutter/styles/TextStyles.dart';
+import 'package:frontend_flutter/util/TextStyles.dart';
+import 'package:frontend_flutter/util/sharedStates.dart';
 
 class GetPage extends StatefulWidget {
   @override
@@ -23,9 +24,11 @@ class _GetPageState extends State<GetPage> {
   void listSearch() async {
     print("ListSearch() - started");
     final foodListState = Provider.of<GetList>(context);
+    final appState = Provider.of<AppState>(context);
+
     foodListState.setIsLoading(true);
 
-    rest.getList("Pur").then((list) {
+    rest.getList(appState.getUser()).then((list) {
       foodListState.setIsLoading(false);
       foodListState.setGetList(list);
     });
@@ -34,10 +37,11 @@ class _GetPageState extends State<GetPage> {
   void idSearch(int id) {
     print("idSearch()");
     final foodListState = Provider.of<GetList>(context);
+    final appState = Provider.of<AppState>(context);
 
     foodListState.setIsLoading(true);
 
-    rest.get("Pur", int.parse(textController.text)).then((food) {
+    rest.get(appState.getUser(), int.parse(textController.text)).then((food) {
       foodListState.setIsLoading(false);
       List<rest.Food> list = List<rest.Food>();
       list.add(food);
@@ -48,7 +52,6 @@ class _GetPageState extends State<GetPage> {
 
   @override
   Widget build(BuildContext context) {
-    final foodListState = Provider.of<GetList>(context);
     return
       new Center (
           child: new Column(
