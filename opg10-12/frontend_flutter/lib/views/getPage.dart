@@ -56,8 +56,11 @@ class _GetPageState extends State<GetPage> {
     print("idSearch()");
     final foodListState = Provider.of<GetList>(context);
     List<FoodLineDisplay> newList = List<FoodLineDisplay>();
+
+    final future = rest.get("Pur", id);
+    print(future.toString());
     new FutureBuilder<rest.Food> (
-      future: rest.get("Pur", id),
+      future: future,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           newList.add(
@@ -193,7 +196,6 @@ class FoodLineDisplay extends StatelessWidget {
         new SizedBox(width: 20),
         new Text(food.name),
         new SizedBox(width: 10),
-        new Text(food.amount.toString())
       ],
     );
   }
