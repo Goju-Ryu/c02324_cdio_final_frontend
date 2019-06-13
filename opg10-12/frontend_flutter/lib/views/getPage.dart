@@ -34,9 +34,15 @@ class _GetPageState extends State<GetPage> {
   void idSearch(int id) {
     print("idSearch()");
     final foodListState = Provider.of<GetList>(context);
-    List<FoodLineDisplay> newList = List<FoodLineDisplay>();
 
+    foodListState.setIsLoading(true);
 
+    rest.get("Pur", int.parse(textController.text)).then((food) {
+      foodListState.setIsLoading(false);
+      List<rest.Food> list = List<rest.Food>();
+      list.add(food);
+      foodListState.setGetList(list);
+    });
   }
 
 
@@ -161,6 +167,7 @@ class FoodLineDisplay extends StatelessWidget {
         new SizedBox(width: 20),
         new Text(food.name),
         new SizedBox(width: 10),
+        new Text(food.date),
       ],
     );
   }
