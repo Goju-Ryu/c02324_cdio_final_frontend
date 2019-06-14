@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget{
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      title: "Proof of concept food app",
+      title: "Proof of concept ingredient app",
       home: ChangeNotifierProvider(builder: (_) => AppState("Pur"), child: new Home()),
     );
   }
@@ -46,7 +46,7 @@ class _HomeState extends State<Home>{
         return new HomePage();
       }
       case (_EWindow.getFood): {
-        return new ChangeNotifierProvider( builder: (_) => GetList(new List<FoodLineDisplay>(0)), child: new GetPage());
+        return new ChangeNotifierProvider( builder: (_) => GetList(new List<IngredientLineDisplay>(0)), child: new GetPage());
       }
       case (_EWindow.updateFood): {
         return new UpdatePage();
@@ -55,7 +55,7 @@ class _HomeState extends State<Home>{
         return new DeletePage();
       }
       default: {
-        throw new Exception("Home: _getWindow: unknown selection (_selection)");
+        throw new Exception("Home: _getWindow: unknown selection (" + _selection.toString() + " / " + _selection.index.toString() + ")");
       }
     }
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/rest.dart' as rest;
 import 'package:frontend_flutter/util/TextStyles.dart';
-import 'package:frontend_flutter/util/sharedStates.dart';
 import 'package:provider/provider.dart';
 
 class DeletePage extends StatelessWidget {
@@ -9,7 +8,6 @@ class DeletePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appState = Provider.of<AppState>(context);
     // TODO: implement build
     return new Center(
       child: new Column(
@@ -34,8 +32,8 @@ class DeletePage extends StatelessWidget {
 
                 new RaisedButton(
                   onPressed: () {
-                    rest.deleteFood(
-                        int.parse(textController.text), appState.getUser());
+                    rest.delete(
+                        int.parse(textController.text));
                   }, //onPressed
                   child: new Text("Delete"),
                   shape: new RoundedRectangleBorder(),

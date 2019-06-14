@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import 'package:frontend_flutter/rest.dart' as rest;
 import 'package:frontend_flutter/util/TextStyles.dart';
-import 'package:frontend_flutter/util/sharedStates.dart';
 
 class GetPage extends StatefulWidget {
   @override
@@ -22,30 +21,27 @@ class _GetPageState extends State<GetPage> {
   }
 
   void listSearch() async {
-    print("ListSearch() - started");
-    final foodListState = Provider.of<GetList>(context);
-    final appState = Provider.of<AppState>(context);
+    final ingredientListState = Provider.of<GetList>(context);
 
-    foodListState.setIsLoading(true);
+    ingredientListState.setIsLoading(true);
 
-    rest.getList(appState.getUser()).then((list) {
-      foodListState.setIsLoading(false);
-      foodListState.setGetList(list);
+    rest.getList().then((list) {
+      ingredientListState.setIsLoading(false);
+      ingredientListState.setGetList(list);
     });
   }
 
   void idSearch(int id) {
     print("idSearch()");
-    final foodListState = Provider.of<GetList>(context);
-    final appState = Provider.of<AppState>(context);
+    final ingredientListState = Provider.of<GetList>(context);
 
-    foodListState.setIsLoading(true);
+    ingredientListState.setIsLoading(true);
 
-    rest.get(appState.getUser(), int.parse(textController.text)).then((food) {
-      foodListState.setIsLoading(false);
-      List<rest.Food> list = List<rest.Food>();
-      list.add(food);
-      foodListState.setGetList(list);
+    rest.get(int.parse(textController.text)).then((ingredient) {
+      ingredientListState.setIsLoading(false);
+      List<rest.Ingredient> list = List<rest.Ingredient>();
+      list.add(ingredient);
+      ingredientListState.setGetList(list);
     });
   }
 
@@ -58,13 +54,13 @@ class _GetPageState extends State<GetPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              new Text("Get your food!", style: MyHeadline,),
+              new Text("Get your ingredients!", style: MyHeadline,),
               new Row (
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(width: 80,
-                      child: new Text("Check to search for all food: ")),
+                      child: new Text("Check to search for all ingredients: ")),
                   new Checkbox(value: _getList, onChanged: setGetList),
                   new Flexible( //This is needed for the row to determine the size of textField. Without it an Error occurs and it isn't displayed.
                       flex: 1,
@@ -92,9 +88,9 @@ class _GetPageState extends State<GetPage> {
                 ],
               ),
               new Expanded(
-                  child: new FoodList()
+                  child: new IngredientList()
               ),
-              //TODO: implement the food being displayed (create food view?)
+              //TODO: implement the ingredients being displayed (create ingredient view?)
 
             ],
           )
@@ -109,15 +105,15 @@ class _GetPageState extends State<GetPage> {
 
 }
 
-class FoodList extends StatelessWidget {
+class IngredientList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final foodList = Provider.of<GetList>(context);
-    if (foodList.getIsLoading()) {
+    final ingredientList = Provider.of<GetList>(context);
+    if (ingredientList.getIsLoading()) {
       return new CircularProgressIndicator();
     } else {
       return new ListView(
-        children: foodList.getGetList(),
+        children: ingredientList.getGetList(),
       );
     }
   }
@@ -125,23 +121,23 @@ class FoodList extends StatelessWidget {
 }
 
 class GetList with ChangeNotifier {
-  List<FoodLineDisplay> _list;
+  List<IngredientLineDisplay> _list;
   bool _isLoading;
 
   GetList(this._list) {
     this._isLoading = false;
   }
 
-  List<FoodLineDisplay> getGetList() {
+  List<IngredientLineDisplay> getGetList() {
     return _list;
   }
 
-  void setGetList(List<rest.Food> list) {
-    List<FoodLineDisplay> foodLines = new List<FoodLineDisplay>();
+  void setGetList(List<rest.Ingredient> list) {
+    List<IngredientLineDisplay> ingredientLines = new List<IngredientLineDisplay>();
     list.forEach((f) {
-      foodLines.add(FoodLineDisplay(f));
+      ingredientLines.add(IngredientLineDisplay(f));
     });
-    _list = foodLines;
+    _list = ingredientLines;
     notifyListeners();
   }
 
@@ -156,21 +152,21 @@ class GetList with ChangeNotifier {
 
 }
 
-class FoodLineDisplay extends StatelessWidget {
-  final rest.Food food;
+class IngredientLineDisplay extends StatelessWidget {
+  final rest.Ingredient ingredient;
 
-  FoodLineDisplay(this.food);
+  IngredientLineDisplay(this.ingredient);
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Row(
       children: <Widget>[
-        new Text(food.id.toString()),
+        new Text(ingredient.id.toString()),
         new SizedBox(width: 20),
-        new Text(food.name),
+        new Text(ingredient.name),
         new SizedBox(width: 10),
-        new Text(food.date),
+        new Text(ingredient.amount.toString()),
       ],
     );
   }

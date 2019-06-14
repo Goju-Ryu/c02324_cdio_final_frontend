@@ -22,7 +22,7 @@ public class IngredientService {
 	static {
 		ingredients.put(1, new Ingredient(1, "flormelis", 60.0));
 		ingredients.put(2, new Ingredient(2, "mel", 240.0));
-		ingredients.put(3, new Ingredient(3, "smør", 185.0));
+		ingredients.put(3, new Ingredient(3, "smÃ¸r", 185.0));
 	} 
     
 
