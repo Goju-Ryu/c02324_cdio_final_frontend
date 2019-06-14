@@ -29,30 +29,53 @@ class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("test"),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-
-          children: [
-            Flexible(
-                fit: FlexFit.tight,
-                flex: 1,
-                child: MaterialButton(
-                  child: Text(
-                    "button",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {},
-                ))
-          ],
+        Flexible(
+          fit: FlexFit.tight,
+          flex: 1,
+          child: MaterialButton(
+            child: Text(
+              "Freezer",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40
+              ),
+            ),
+            onPressed: () {}/*TODO add method to link to Freezer page*/,
+            color: Theme.of(context).accentColor,
+          ),
         ),
-        Row(),
-        Row(),
+        Flexible(
+          fit: FlexFit.tight,
+          flex: 1,
+          child: MaterialButton(
+            child: Text(
+              "Refrigerator",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+              ),
+            ),
+            onPressed: () {}/*TODO: Add method to link to fridge page*/,
+            color: Theme.of(context).accentColor,
+          ),
+        ),
+        Flexible(
+          fit: FlexFit.tight,
+          flex: 1,
+          child: MaterialButton(
+            child: Text(
+              "Pantry",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40
+              ),
+            ),
+            onPressed: () {}/*TODO: Add method to link to pantry page*/,
+            color: Theme.of(context).accentColor,
+          ),
+        ),
       ],
     );
   }
