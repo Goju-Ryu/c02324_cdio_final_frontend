@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Bruger\\Desktop\\semester2_cdio_final\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\fredr\\IdeaProjects\\c02324_cdio_final_frontend\\frontend_foodApp\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Bruger\\Desktop\\semester2_cdio_final\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "C:\\Users\\fredr\\IdeaProjects\\c02324_cdio_final_frontend\\frontend_foodApp\\android\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
