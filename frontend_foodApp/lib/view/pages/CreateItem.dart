@@ -12,9 +12,9 @@ class CreateItem extends StatelessWidget{
             children: <Widget>[
               TextFormField( decoration: InputDecoration(
                   labelText: "Name Food")),
-              TextFormField( decoration: InputDecoration(
+              TextFormField( decoration: InputDecoration( //TODO replace with choice menu
                   labelText: "Place Food")),
-              TextFormField( decoration: InputDecoration(
+              TextFormField( decoration: InputDecoration( //TODO replace with choice menu
                   labelText: "Cat Food")),
               TextFormField( decoration: InputDecoration(
                   labelText: "Date Food")),
