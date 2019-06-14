@@ -59,6 +59,7 @@ class MainMenu extends StatelessWidget {
             ),
             onPressed: () {}/*TODO: Add method to link to fridge page*/,
             color: Theme.of(context).accentColor,
+            ,
           ),
         ),
         Flexible(
