@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+// main for testing
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -60,7 +62,7 @@ class Item extends StatelessWidget {
           Flexible(
               fit: FlexFit.tight,
               flex: 1,
-              child: MaterialButton(
+              child: MaterialButton( //BUTTON style
                 child: Text('Update', style: TextStyle(fontSize: 36),),
                 onPressed: update,
                 textColor: Colors.red,
@@ -70,7 +72,7 @@ class Item extends StatelessWidget {
           Flexible(
             fit: FlexFit.tight,
             flex: 1,
-            child: MaterialButton(
+            child: MaterialButton( // BUTTON STYLE
               child: Text('Delete', style: TextStyle(fontSize: 36),),
               onPressed: delete,
               textColor: Colors.red,
