@@ -112,32 +112,41 @@ class IngredientList extends StatelessWidget {
     if (ingredientList.getIsLoading()) {
       return new CircularProgressIndicator();
     } else {
-      return new ListView(
-        children: ingredientList.getGetList(),
+      return new DataTable(
+        columns: [
+          new DataColumn(label: Text("ID")),
+          new DataColumn(label: Text("Name")),
+          new DataColumn(label: Text("Amount"))
+        ],
+        rows:ingredientList.getGetList(),
       );
     }
   }
-
 }
 
 class GetList with ChangeNotifier {
-  List<IngredientLineDisplay> _list;
+  List<DataRow> _list;
   bool _isLoading;
 
   GetList(this._list) {
     this._isLoading = false;
   }
 
-  List<IngredientLineDisplay> getGetList() {
+  List<DataRow> getGetList() {
     return _list;
   }
 
   void setGetList(List<rest.Ingredient> list) {
-    List<IngredientLineDisplay> ingredientLines = new List<IngredientLineDisplay>();
+    List<DataRow> ingredientRow = new List<DataRow>();
     list.forEach((f) {
-      ingredientLines.add(IngredientLineDisplay(f));
+      ingredientRow.add(DataRow(cells: [
+        new DataCell(Text(f.id.toString())),
+        new DataCell(Text(f.name)),
+        new DataCell(Text(f.amount.toString()))
+      ])
+      );
     });
-    _list = ingredientLines;
+    _list = ingredientRow;
     notifyListeners();
   }
 
@@ -152,22 +161,22 @@ class GetList with ChangeNotifier {
 
 }
 
-class IngredientLineDisplay extends StatelessWidget {
-  final rest.Ingredient ingredient;
-
-  IngredientLineDisplay(this.ingredient);
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return new Row(
-      children: <Widget>[
-        new Text(ingredient.id.toString()),
-        new SizedBox(width: 20),
-        new Text(ingredient.name),
-        new SizedBox(width: 10),
-        new Text(ingredient.amount.toString()),
-      ],
-    );
-  }
-}
+//class DataRow extends StatelessWidget {
+//  final rest.Ingredient ingredient;
+//
+//  DataRow(this.ingredient);
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    return new Row(
+//      children: <Widget>[
+//        new Text(ingredient.id.toString()),
+//        new SizedBox(width: 20),
+//        new Text(ingredient.name),
+//        new SizedBox(width: 10),
+//        new Text(ingredient.amount.toString()),
+//      ],
+//    );
+//  }
+//}

@@ -46,7 +46,7 @@ class _HomeState extends State<Home>{
         return new HomePage();
       }
       case (_EWindow.getFood): {
-        return new ChangeNotifierProvider( builder: (_) => GetList(new List<IngredientLineDisplay>(0)), child: new GetPage());
+        return new ChangeNotifierProvider( builder: (_) => GetList(new List<DataRow>(0)), child: new GetPage());
       }
       case (_EWindow.updateFood): {
         return new UpdatePage();
