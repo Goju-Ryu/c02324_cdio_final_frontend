@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'buttonStyles.dart';
+import 'stdColours.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -31,6 +32,15 @@ class MainMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        //TODO: Delete when testing has finished
+        SizedBox(
+          height: 50,
+          width: 50,
+          child: DecoratedBox(
+              decoration: BoxDecoration(
+                  color: primaryColour)
+          ),
+        ),
         Flexible(
           fit: FlexFit.tight,
           flex: 1,
@@ -43,7 +53,7 @@ class MainMenu extends StatelessWidget {
               ),
             ),
             onPressed: () {}/*TODO add method to link to Freezer page*/,
-            color: Theme.of(context).accentColor,
+            color: secondaryColour,
           ),
         ),
         Flexible(
@@ -58,8 +68,7 @@ class MainMenu extends StatelessWidget {
               ),
             ),
             onPressed: () {}/*TODO: Add method to link to fridge page*/,
-            color: Theme.of(context).accentColor,
-            ,
+            color: secondaryColour,
           ),
         ),
         Flexible(
@@ -74,9 +83,18 @@ class MainMenu extends StatelessWidget {
               ),
             ),
             onPressed: () {}/*TODO: Add method to link to pantry page*/,
-            color: Theme.of(context).accentColor,
+            color: secondaryColour,
           ),
         ),
+        //TODO: Delete box when finished testing
+        SizedBox(
+          height: 50,
+            width: 50,
+          child: DecoratedBox(
+              decoration: BoxDecoration(
+                  color: primaryColour)
+          ),
+        )
       ],
     );
   }

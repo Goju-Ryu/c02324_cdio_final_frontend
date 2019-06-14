@@ -1,4 +1,4 @@
-#Fri Jun 14 14:34:54 CEST 2019
+#Fri Jun 14 16:46:18 CEST 2019
 base.0=E\:\\GitProjects\\Sem2\\three_week_period\\cdio_final\\frontend_foodApp\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
