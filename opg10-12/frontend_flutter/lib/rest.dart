@@ -62,13 +62,13 @@ Future<List<Ingredient>> getList() async {
   }
 }
 
-Future<String> sendPost({Map body}) async {
+Future<String> sendPost({Map<String, String> ingredient}) async {
   String url = _root;
-  body = {"Content-type": "application/json"};
+  Map<String, String> header = {"Content-type": "application/json"};
 
-  final response = await http.post(url, body: body);
+  final response = await http.post(url, headers: header, body: jsonEncode(ingredient), encoding: Encoding.getByName("json"));
 
-  if (response.statusCode == 201) {
+  if (response.statusCode == 200) {
     return "Food successfully created";
   } else {
     print('Error in food creation');
@@ -94,8 +94,9 @@ Future<String> delete(int foodId) async {
   }
 }
 
-Future<String> sendPut(int ingredientId, Map<String, String> headers) async {
-  String url = _root + ingredientId.toString();
+Future<String> sendPut(int ingredientId) async {
+  String url = _root + "/" + ingredientId.toString();
+  Map<String, String> headers = {"Content-type": "application/json"};
   final response = await http.put(url, headers: headers);
 
   if (response.statusCode == 200) {
