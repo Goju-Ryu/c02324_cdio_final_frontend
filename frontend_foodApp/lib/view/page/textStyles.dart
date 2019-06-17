@@ -5,7 +5,7 @@ class CustomTextStyle{
     return TextStyle(
       fontFamily: 'Mukta',
       fontSize: 40,
-      color: Colors.red,
+      color: btnTextColour,
     );
   }
 }
