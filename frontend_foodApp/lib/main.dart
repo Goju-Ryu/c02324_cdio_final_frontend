@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:semester2_cdio_final/util/buttonStyles.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
-
 import 'package:semester2_cdio_final/view/page/mainMenu.dart';
 import 'package:semester2_cdio_final/view/page/createItem.dart';
 import 'package:semester2_cdio_final/view/page/itemInfo.dart';
+import 'package:semester2_cdio_final/util/sharedStates.dart';
 
 
 void main() => runApp(MyApp());
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
           //primarySwatch: primaryColour,
           //secondaryHeaderColor: secondaryColour
           ),
-      home: MyHomePage(),
+      home: ChangeNotifierProvider(builder: (_) => AppState("Pur"), child: MyHomePage()),
     );
   }
 }
@@ -41,22 +44,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  EPages _selection = EPages.mainMenu;
-
-  void _selectPage(EPages selection) {
-    setState(() {
-      _selection = selection;
-    });
-  }
 
   Widget _getPage() {
-    switch (this._selection) {
+    final appState = Provider.of<AppState>(context);
+    switch (appState.getSelection()) {
       case EPages.mainMenu:
         return MainMenu();
 
 
       case EPages.itemList:
-        // TODO: Handle this case.
+      // TODO: Handle this case.
         break;
       case EPages.createItem:
         return CreateItem();
@@ -64,17 +61,18 @@ class _MyHomePageState extends State<MyHomePage> {
       case EPages.itemView:
         return Item();
       case EPages.updateItem:
-        // TODO: Handle this case.
+      // TODO: Handle this case.
         break;
       default:
         return Text("Page selection failed: index [" +
-            this._selection.index.toString() +
+            appState.getSelection().index.toString() +
             "] is unknown");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppState>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Food app - demo"),
@@ -87,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 31),
                 child: FloatingActionButton(
                   child: Icon(Icons.home),
-                  onPressed: () {_selectPage(EPages.mainMenu);},
+                  onPressed: () {appState.selectPage(EPages.mainMenu);},
                 )
             ),
           ),
@@ -95,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
               child: Icon(Icons.add_circle_outline),
-              onPressed: () {_selectPage(EPages.createItem);},
+              onPressed: () {appState.selectPage(EPages.createItem);},
             ),
           ),
         ],
@@ -105,4 +103,4 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-enum EPages { mainMenu, itemList, createItem, itemView, updateItem }
+
