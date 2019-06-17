@@ -3,6 +3,8 @@ import 'package:semester2_cdio_final/util/buttonStyles.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
 
 import 'package:semester2_cdio_final/view/page/mainMenu.dart';
+import 'package:semester2_cdio_final/view/page/createItem.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -52,7 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
         return MainMenu();
 
 
+      case EPages.itemList:
+        // TODO: Handle this case.
+        break;
+      case EPages.createItem:
+        return CreateItem();
 
+      case EPages.itemView:
+        // TODO: Handle this case.
+        break;
+      case EPages.updateItem:
+        // TODO: Handle this case.
+        break;
       default:
         return Text("Page selection failed: index [" +
             this._selection.index.toString() +
