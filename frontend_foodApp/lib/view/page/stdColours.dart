@@ -4,4 +4,4 @@ final secondaryColour = Colors.blueAccent;
 final btnDisabledColour = Colors.blueGrey;
 final btnHighlightColour = Colors.lightBlueAccent;
 final btnSplashColour = Colors.white70;
-final textColour = Colors.white;
+final btnTextColour = Colors.white;
