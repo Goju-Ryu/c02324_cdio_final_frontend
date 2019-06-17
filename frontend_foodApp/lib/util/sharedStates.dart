@@ -4,7 +4,7 @@ class AppState with ChangeNotifier {
   String _user = "Pur";
   EPages _selection = EPages.mainMenu;
 
-  AppState(this._user, {selection}){
+  AppState(this._user, {EPages selection}){
     if (selection != null)
       this._selection = selection;
     else
