@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'buttonStyles.dart';
-import 'stdColours.dart';
+import 'package:semester2_cdio_final/util/buttonStyles.dart';
+import 'package:semester2_cdio_final/util/stdColours.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: primaryColour,
       ),
       home: MainMenu(),
     );
