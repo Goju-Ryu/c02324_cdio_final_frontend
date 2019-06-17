@@ -1,4 +1,0 @@
-#Mon Jun 17 11:55:35 CEST 2019
-base.0=C\:\\Users\\Bruger\\Desktop\\semester2_cdio_final\\frontend_foodApp\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
