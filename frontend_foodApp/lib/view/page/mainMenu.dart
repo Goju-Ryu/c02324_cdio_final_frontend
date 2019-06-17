@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'buttonStyles.dart';
 import 'stdColours.dart';
+import 'textStyles.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -47,10 +48,7 @@ class MainMenu extends StatelessWidget {
           child: MaterialButton(
             child: Text(
               "Freezer",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40
-              ),
+              style: CustomTextStyle.btnTxtStyle(),
             ),
             onPressed: () {}/*TODO add method to link to Freezer page*/,
             color: secondaryColour,
@@ -62,10 +60,7 @@ class MainMenu extends StatelessWidget {
           child: MaterialButton(
             child: Text(
               "Refrigerator",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-              ),
+              style: CustomTextStyle.btnTxtStyle(),
             ),
             onPressed: () {}/*TODO: Add method to link to fridge page*/,
             color: secondaryColour,
@@ -77,10 +72,7 @@ class MainMenu extends StatelessWidget {
           child: MaterialButton(
             child: Text(
               "Pantry",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40
-              ),
+              style: CustomTextStyle.btnTxtStyle(),
             ),
             onPressed: () {}/*TODO: Add method to link to pantry page*/,
             color: secondaryColour,
