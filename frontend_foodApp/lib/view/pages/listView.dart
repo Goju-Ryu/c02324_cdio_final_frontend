@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:semester2_cdio_final/rest/foodDTO.dart';
 
 
 void main(){
@@ -18,6 +19,7 @@ Widget getListView() {
     children: <Widget>[
 
 
+      //Use ListButton class instead
       Card(
         child: ListTile(
           leading: Icon(Icons.accessible),
@@ -25,6 +27,7 @@ Widget getListView() {
           onTap: (){},
         ),
       ),
+
 
       Card(
         child: ListTile(
@@ -48,10 +51,18 @@ Widget getListView() {
 }
 
 class ListButton extends StatelessWidget {
+  final FoodDTO _food;
+  
+  ListButton(this._food);
+  
   @override
   Widget build(BuildContext context) {
-    return ListButton(
 
+    return Card(
+      child: ListTile(
+        title: Text(this._food.foodName),
+        onTap: (){},
+      ),
     );
 
 
