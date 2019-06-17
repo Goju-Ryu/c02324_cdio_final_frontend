@@ -4,6 +4,7 @@ import 'package:semester2_cdio_final/util/stdColours.dart';
 
 import 'package:semester2_cdio_final/view/page/mainMenu.dart';
 import 'package:semester2_cdio_final/view/page/createItem.dart';
+import 'package:semester2_cdio_final/view/page/itemInfo.dart';
 
 
 void main() => runApp(MyApp());
@@ -61,8 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return CreateItem();
 
       case EPages.itemView:
-        // TODO: Handle this case.
-        break;
+        return Item();
       case EPages.updateItem:
         // TODO: Handle this case.
         break;
