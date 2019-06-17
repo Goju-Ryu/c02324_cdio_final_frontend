@@ -53,6 +53,12 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
+  fonts:
+  - family: Mukta
+    fonts:
+      - asset: lib/util/fonts/Mukta-Regular.ttf
+      - asset: lib/util/fonts/Mukta-Bold.ttf
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -72,3 +78,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+datetime_picker_formfield: ^0.1.8
