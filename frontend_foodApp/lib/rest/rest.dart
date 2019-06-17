@@ -2,26 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'foodDTO.dart';
 
 final String _root = 'http://10.0.2.2:8080/rest/ingredient';
 
-class FoodDTO {
-  final int foodId;
-  final String foodName, userName, expDate, location, category;
 
-  FoodDTO({this.foodId, this.foodName, this.userName, this.expDate, this.location, this.category});
-
-  factory FoodDTO.fromJson(Map<String, dynamic> json) {
-    return FoodDTO(
-      foodId: json['id'],
-      foodName: json['name'],
-      userName: json['userName'],
-      expDate: json['expDate'],
-      location: json['location'],
-      category: json['category']
-    );
-  }
-}
 
 Future<FoodDTO> get(int foodId) async {
   String url = _root + "/" + foodId.toString();
