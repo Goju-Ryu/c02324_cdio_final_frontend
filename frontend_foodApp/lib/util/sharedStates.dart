@@ -41,39 +41,44 @@ class AppState with ChangeNotifier {
 
 class FoodList with ChangeNotifier {
   bool _useDummyList;
-  List<FoodDTO> _list;
+  List<FoodDTO> _freezerList;
+  List<FoodDTO> _fridgeList;
+  List<FoodDTO> _pantryList;
 
   FoodList.dummyList () {
     this._useDummyList = true;
-    this._list = this._getDummyData();
+    this._freezerList = this._getDummyData(ELocation.freezer);
+    this._freezerList = this._getDummyData(ELocation.fridge);
+    this._freezerList = this._getDummyData(ELocation.pantry);
   }
 
   FoodList.restList(String user) {
     this._useDummyList = false;
-    rest.getFoodList(user, "Freezer").then((futureList) {this._list = futureList;});
-
+    rest.getFoodList(user, "Freezer").then((futureList) {this._freezerList = futureList;});
+    rest.getFoodList(user, "Fridge").then((futureList) {this._fridgeList = futureList;});
+    rest.getFoodList(user, "Pantry").then((futureList) {this._pantryList = futureList;});
   }
 
   void setList(List<FoodDTO> list) {
-    this._list = list;
+    this._freezerList = list;
   }
 
   void addToList(FoodDTO item) {
-    this._list.add(item);
+    this._freezerList.add(item);
   }
 
   void removeFromList(FoodDTO item) {
-    this._list.remove(item);
+    this._freezerList.remove(item);
   }
 
   List<FoodDTO> getList() {
-    return this._list;
+    return this._freezerList;
   }
   
-  List<FoodDTO> _getDummyData() {
+  List<FoodDTO> _getDummyData(ELocation location) {
     List<FoodDTO> list = List<FoodDTO>();
-    list.add(FoodDTO(foodId: 1, foodName: "Icecream", expDate: "2020-02-15", category: "Other", location: "Freezer"));
-    list.add(FoodDTO(foodId: 2, foodName: "Steak", expDate: "2019-07-03", category: "Beef", location: "Freezer"));
+    list.add(FoodDTO(foodId: 1, foodName: "Icecream", expDate: "2020-02-15", category: "Other", location: location.toString()));
+    list.add(FoodDTO(foodId: 2, foodName: "Steak", expDate: "2019-07-03", category: "Beef", location: location.toString()));
     return list;
   }
 

@@ -22,6 +22,8 @@ class MainMenu extends StatelessWidget {
                   color: primaryColour)
           ),
         ),
+
+        //Freezer
         Flexible(
           fit: FlexFit.tight,
           flex: 1,
@@ -30,10 +32,12 @@ class MainMenu extends StatelessWidget {
               "Freezer",
               style: CustomTextStyle.btnTxtStyle(),
             ),
-            onPressed: () {appState.selectPage(ItemList());}/*TODO add method to link to Freezer page*/,
+            onPressed: () {appState.selectPage(ItemList(ELocation.freezer));},
             color: secondaryColour,
           ),
         ),
+
+        //Fridge
         Flexible(
           fit: FlexFit.tight,
           flex: 1,
@@ -42,10 +46,12 @@ class MainMenu extends StatelessWidget {
               "Refrigerator",
               style: CustomTextStyle.btnTxtStyle(),
             ),
-            onPressed: () {}/*TODO: Add method to link to fridge page*/,
+            onPressed: () {appState.selectPage(ItemList(ELocation.fridge));},
             color: secondaryColour,
           ),
         ),
+
+        //Pantry
         Flexible(
           fit: FlexFit.tight,
           flex: 1,
@@ -54,7 +60,7 @@ class MainMenu extends StatelessWidget {
               "Pantry",
               style: CustomTextStyle.btnTxtStyle(),
             ),
-            onPressed: () {}/*TODO: Add method to link to pantry page*/,
+            onPressed: () {appState.selectPage(ItemList(ELocation.pantry));},
             color: secondaryColour,
           ),
         ),

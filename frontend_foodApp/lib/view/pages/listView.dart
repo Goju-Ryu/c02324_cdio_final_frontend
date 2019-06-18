@@ -7,6 +7,10 @@ import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
 
 //Put this widget in main body to make the list of foods
 class ItemList extends StatelessWidget {
+  ELocation _location;
+
+  ItemList(this._location);
+
   List<Widget> createButtonList(List<FoodDTO> itemList) {
     if (itemList == null)
       return <Widget>[
@@ -29,7 +33,12 @@ class ItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final foodList = Provider.of<FoodList>(context);
-    return ListView(children: createButtonList(foodList.getList()));
+    return Column(
+      children: <Widget>[
+        Text(""),
+        ListView(children: createButtonList(foodList.getList())),
+      ],
+    );
   }
 }
 
