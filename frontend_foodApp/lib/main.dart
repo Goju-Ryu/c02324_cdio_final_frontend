@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         child: MyHomePage(),
           providers: [
             ChangeNotifierProvider(builder: (_) => AppState("Pur")),
-            ChangeNotifierProvider(builder: (_) => FoodList()),
+            ChangeNotifierProvider(builder: (_) => FoodList(false)), //Turn true to use a list of data with no need for the rest service
           ]
       ),
     );

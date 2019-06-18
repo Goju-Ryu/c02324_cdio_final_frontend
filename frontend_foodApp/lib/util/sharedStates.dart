@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:semester2_cdio_final/rest/foodDTO.dart';
+import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
 
 class AppState with ChangeNotifier {
@@ -32,13 +33,18 @@ class AppState with ChangeNotifier {
   }
 }
 
+
 class FoodList with ChangeNotifier {
   List<FoodDTO> _list;
 
-  FoodList () {
-    List<FoodDTO> list = List<FoodDTO>();
-    list.add(FoodDTO(foodId: 1, foodName: "Icecream", expDate: "2020-02-15", category: "Other", location: "Freezer"));
-    list.add(FoodDTO(foodId: 2, foodName: "Steak", expDate: "2019-07-03", category: "Beef", location: "Freezer"));
+  FoodList (bool useDummyList) {
+    List<FoodDTO> list;
+    
+    if (useDummyList)
+      list = this._getDummyData();
+    else 
+      rest.getList().then((flist) {list = flist;});
+      
     this._list = list;
   }
 
@@ -57,8 +63,14 @@ class FoodList with ChangeNotifier {
   List<FoodDTO> getList() {
     return this._list;
   }
-
+  
+  List<FoodDTO> _getDummyData() {
+    List<FoodDTO> list = List<FoodDTO>();
+    list.add(FoodDTO(foodId: 1, foodName: "Icecream", expDate: "2020-02-15", category: "Other", location: "Freezer"));
+    list.add(FoodDTO(foodId: 2, foodName: "Steak", expDate: "2019-07-03", category: "Beef", location: "Freezer"));
+    return list;
+  }
 
 }
 
-enum EPages { mainMenu, itemList, createItem, itemView, updateItem }
+enum ELocation { freezer, fridge, pantry }
