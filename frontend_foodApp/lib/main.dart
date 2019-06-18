@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
+import 'package:semester2_cdio_final/rest/foodDTO.dart';
+import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/util/buttonStyles.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
+import 'package:semester2_cdio_final/util/sharedStates.dart';
 import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
 import 'package:semester2_cdio_final/view/pages/createItem.dart';
 import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
+
+
 
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -31,9 +36,17 @@ class MyApp extends StatelessWidget {
           //primarySwatch: primaryColour,
           //secondaryHeaderColor: secondaryColour
           ),
-      home: ChangeNotifierProvider(builder: (_) => AppState("Pur"), child: MyHomePage()),
+      home: MultiProvider(
+        child: MyHomePage(),
+          providers: [
+            ChangeNotifierProvider(builder: (_) => AppState("Pur")),
+            ChangeNotifierProvider(builder: (_) => FoodList()),
+          ]
+      ),
     );
   }
+
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -44,31 +57,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  Widget _getPage() {
-    final appState = Provider.of<AppState>(context);
-    switch (appState.getSelection()) {
-      case EPages.mainMenu:
-        return MainMenu();
-
-
-      case EPages.itemList:
-      // TODO: Handle this case.
-        break;
-      case EPages.createItem:
-        return CreateItem();
-
-      case EPages.itemView:
-        return Item();
-      case EPages.updateItem:
-      // TODO: Handle this case.
-        break;
-      default:
-        return Text("Page selection failed: index [" +
-            appState.getSelection().index.toString() +
-            "] is unknown");
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 31),
                 child: FloatingActionButton(
                   child: Icon(Icons.home),
-                  onPressed: () {appState.selectPage(EPages.mainMenu);},
+                  onPressed: () {appState.selectPage(MainMenu());},
                 )
             ),
           ),
@@ -93,13 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
               child: Icon(Icons.add_circle_outline),
-              onPressed: () {appState.selectPage(EPages.createItem);},
+              onPressed: () {appState.selectPage(CreateItem());},
             ),
           ),
         ],
       ),
-      body: _getPage(),
-    );;
+      body: appState.getPage(),
+    );
   }
 }
 

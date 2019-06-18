@@ -1,48 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MaterialApp(
-      title: "ListView",
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Fridge"),
-        ),
-        body: getListView(),
-      )));
-}
+import 'package:semester2_cdio_final/rest/foodDTO.dart';
+import 'package:semester2_cdio_final/util/sharedStates.dart';
+import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
 
-Widget getListView() {
-  var listView = ListView(children: <Widget>[
-    Card(
-      child: ListTile(
-        leading: Icon(Icons.accessible),
-        title: Text('Rullestol'),
-        onTap: () {},
-      ),
-    ),
-    Card(
-      child: ListTile(
-        leading: Icon(Icons.ac_unit),
-        title: Text('Shit det er koldt'),
-        onTap: () {},
-      ),
-    ),
-    Card(
-      child: ListTile(
-        leading: Icon(Icons.add_box),
-        title: Text('Jeg dør'),
-        onTap: () {},
-      ),
-    ),
-  ]);
+//Put this widget in main body to make the list of foods
+class ItemList extends StatelessWidget {
 
-  return listView;
+  List<Widget> createButtonList(List<FoodDTO> itemList) {
+    List<Widget> list = new List<Widget>(itemList.length);
+
+    for (int i = 0; i < list.length; i++) {
+      list.add(new ListButton(itemList[i]));
+    }
+
+    return list;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final foodList = Provider.of<FoodList>(context);
+    return ListView(
+        children: createButtonList(foodList.getList())
+    );
+  }
 }
 
 class ListButton extends StatelessWidget {
+  final FoodDTO _food;
+
+  ListButton(this._food);
+
   @override
+
   Widget build(BuildContext context) {
-    return ListButton();
+    final appState = Provider.of<AppState>(context);
+    return Card(
+      child: ListTile(
+        title: Text(this._food.foodName),
+        onTap: () {
+          appState.selectPage(Item(this._food));
+          },
+      ),
+    );
   }
 }
