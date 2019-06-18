@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import 'package:semester2_cdio_final/util/buttonStyles.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
-import 'package:semester2_cdio_final/view/page/mainMenu.dart';
-import 'package:semester2_cdio_final/view/page/createItem.dart';
-import 'package:semester2_cdio_final/view/page/itemInfo.dart';
+import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
+import 'package:semester2_cdio_final/view/pages/createItem.dart';
+import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
 
 
