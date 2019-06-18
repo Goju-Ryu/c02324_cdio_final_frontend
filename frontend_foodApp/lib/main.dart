@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:semester2_cdio_final/rest/foodDTO.dart';
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/util/buttonStyles.dart';
-import 'package:semester2_cdio_final/util/stdColours.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
+import 'package:semester2_cdio_final/util/stdColours.dart';
 import 'package:semester2_cdio_final/view/pages/createItem.dart';
-import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
-
-
-
+import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,19 +26,14 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           //primarySwatch: primaryColour,
-          secondaryHeaderColor: secondaryColour
-          ),
-      home: MultiProvider(
-        child: MyHomePage(),
-          providers: [
-            ChangeNotifierProvider(builder: (_) => AppState(stdUser)),
-            ChangeNotifierProvider(builder: (_) => FoodList.restList(stdUser)), //Use '.dummyList()' instead of '.restList(stdUser)' to use a list of data with no need for the rest service
-          ]
-      ),
+          secondaryHeaderColor: secondaryColour),
+      home: MultiProvider(child: MyHomePage(), providers: [
+        ChangeNotifierProvider(builder: (_) => AppState(stdUser)),
+        ChangeNotifierProvider(
+            builder: (_) => FoodList.dummyList()),//restList(stdUser)), //Use '.dummyList()' instead of '.restList(stdUser)' to use a list of data with no need for the rest service
+      ]),
     );
   }
-
-
 }
 
 class MyHomePage extends StatefulWidget {
@@ -57,7 +44,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
@@ -73,22 +59,29 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(left: 31),
                 child: FloatingActionButton(
                   child: Icon(Icons.home),
-                  onPressed: () {appState.selectPage(MainMenu());},
-                )
-            ),
+                  onPressed: () {
+                    appState.selectPage(MainMenu());
+                  },
+                )),
           ),
           Align(
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
               child: Icon(Icons.add_circle_outline),
-              onPressed: () {appState.selectPage(CreateItem());},
+              onPressed: () {
+                appState.selectPage(CreateItem());
+              },
             ),
           ),
         ],
       ),
-      body: appState.getPage(),
+      body: Column(children: [
+        Flexible(flex: 1, child: appState.getPage()),
+        SizedBox(
+          height: 80,
+          child: DecoratedBox(decoration: BoxDecoration(color: primaryColour)),
+        ),
+      ]),
     );
   }
 }
-
-

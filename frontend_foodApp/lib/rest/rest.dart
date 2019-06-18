@@ -50,6 +50,7 @@ Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
 }
 
 Future<List<FoodDTO>> getFoodList(String userName, String location) async {
+  print("Getting food list from: " + location);
   String url = _root + "/" + userName + "/get/storage/" + location;
   Map<String, String> headers = {"Content-type": "application/json"};
 
@@ -59,6 +60,7 @@ Future<List<FoodDTO>> getFoodList(String userName, String location) async {
     //400
     //if server returns okay
     Iterable foods = json.decode(response.body); //Henrik
+    print("got response: " + response.body);
     return foods
         .map((foodElement) => FoodDTO.fromJson(foodElement))
         .toList(); //Henrik

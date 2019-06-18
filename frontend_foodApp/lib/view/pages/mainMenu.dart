@@ -13,15 +13,6 @@ class MainMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        //TODO: Delete when testing has finished
-        SizedBox(
-          height: 50,
-          width: 50,
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  color: primaryColour)
-          ),
-        ),
 
         //Freezer
         Flexible(
@@ -64,15 +55,6 @@ class MainMenu extends StatelessWidget {
             color: secondaryColour,
           ),
         ),
-        //TODO: Delete box when finished testing
-        SizedBox(
-          height: 50,
-            width: 50,
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  color: primaryColour)
-          ),
-        )
       ],
     );
   }
