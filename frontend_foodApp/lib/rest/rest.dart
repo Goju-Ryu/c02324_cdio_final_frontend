@@ -4,12 +4,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:semester2_cdio_final/rest/foodDTO.dart';
 
-final String _root = 'http://10.0.2.2:8080/rest/ingredient';
+final String _root = 'http://10.0.2.2:8080/rest/food/user';
 
 
 
-Future<FoodDTO> get(int foodId) async {
-  String url = _root + "/" + foodId.toString();
+Future<FoodDTO> getFood(String userName, int foodId) async {
+  String url = _root + "/" + userName + "/get" + foodId.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
 
   final response = await http.get(url, headers: headers);
@@ -27,8 +27,8 @@ Future<FoodDTO> get(int foodId) async {
   }
 }
 
-Future<List<FoodDTO>> getList() async {
-  String url = _root;
+Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
+  String url = _root + "/" + userName + "/get/expire/" + days.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
 
   final response = await http.get(url, headers: headers);
@@ -49,7 +49,29 @@ Future<List<FoodDTO>> getList() async {
   }
 }
 
-Future<String> sendPost({Map<String, String> ingredient}) async {
+Future<List<FoodDTO>> getList(String userName) async {
+  String url = _root + "/" + userName + "/get";
+  Map<String, String> headers = {"Content-type": "application/json"};
+
+  final response = await http.get(url, headers: headers);
+
+  if (response.statusCode == 200) {
+    //400
+    //if server returns okay
+    Iterable foods = json.decode(response.body); //Henrik
+    return foods
+        .map((foodElement) => FoodDTO.fromJson(foodElement))
+        .toList(); //Henrik
+  } else {
+    //if response was not okay, throw an error
+    print('Error in fetchMessage');
+    print("Error type: " + response.statusCode.toString());
+    print(response.body);
+    throw Exception('Failed to load Message');
+  }
+}
+
+Future<String> addFood({Map<String, String> ingredient}) async {
   String url = _root;
   Map<String, String> header = {"Content-type": "application/json"};
 
@@ -65,8 +87,8 @@ Future<String> sendPost({Map<String, String> ingredient}) async {
   }
 }
 
-Future<String> delete(int foodId) async {
-  String url = _root + "/" + foodId.toString();
+Future<String> deleteFood(String userName, int foodId) async {
+  String url = _root + "/" + userName + "/delete" + foodId.toString();
   print(url);
   final response = await http.delete(url);
 
@@ -81,8 +103,24 @@ Future<String> delete(int foodId) async {
   }
 }
 
-Future<String> sendPut(int ingredientId) async {
-  String url = _root + "/" + ingredientId.toString();
+Future<String> deleteAllFood(String userName, String location) async {
+  String url = _root + "/" + userName + "/delete/all/" + location;
+  print(url);
+  final response = await http.delete(url);
+
+  if (response.statusCode == 200) {
+    return "Food successfully deleted"; //Post.fromJson(json.decode(response.body));
+
+  } else {
+    print("Error in deletion");
+    print("Error type: " + response.statusCode.toString());
+    print(response.body);
+    throw Exception("Something went wrong");
+  }
+}
+
+Future<String> updateFood(String userName, int ingredientId) async {
+  String url = _root + "/" + userName + "/put/" + ingredientId.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
   final response = await http.put(url, headers: headers);
 
@@ -94,5 +132,59 @@ Future<String> sendPut(int ingredientId) async {
     print("Error type: " + response.statusCode.toString());
     print(response.body);
     throw Exception("Something went wrong");
+  }
+}
+
+Future<String> addUser (String userName) async{
+  String url = _root + "/" + userName + "/add";
+  print(url);
+
+  Map<String, String> header = {"Content-type": "application/json"};
+
+  final response = await http.post(url, headers: header, body: jsonEncode(userName), encoding: Encoding.getByName("json"));
+
+  if (response.statusCode == 201) {
+    return "User successfully created";
+  } else {
+    print('Error in user creation');
+    print("Error type: " + response.statusCode.toString());
+    print(response.body);
+    throw Exception('Failed to create user');
+  }
+
+}
+
+Future<String> deleteUser(String userName) async {
+  String url = _root + "/" + userName + "/delete";
+  print(url);
+  final response = await http.delete(url);
+
+  if (response.statusCode == 200) {
+    return "User successfully deleted"; //Post.fromJson(json.decode(response.body));
+
+  } else {
+    print("Error in deletion");
+    print("Error type: " + response.statusCode.toString());
+    print(response.body);
+    throw Exception("Something went wrong");
+  }
+}
+
+Future<String> verifyUser(String userName) async {
+  String url = _root + "/" + userName + "/get/verify";
+  print(url);
+
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    //404
+    //if server returns okay
+    return "User exists";
+  } else {
+    //if response was not okay, throw an error
+    print('User does not exist');
+    print("Error type: " + response.statusCode.toString());
+    print(response.body);
+    throw Exception('User does not exist');
   }
 }
