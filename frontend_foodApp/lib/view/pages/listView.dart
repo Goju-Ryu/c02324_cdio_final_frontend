@@ -10,9 +10,9 @@ import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
 class ItemList extends StatelessWidget {
 
   List<Widget> createButtonList(List<FoodDTO> itemList) {
-    List<Widget> list = new List<Widget>(itemList.length);
+    List<Widget> list = new List<Widget>();
 
-    for (int i = 0; i < list.length; i++) {
+    for (int i = 0; i < itemList.length; i++) {
       list.add(new ListButton(itemList[i]));
     }
 

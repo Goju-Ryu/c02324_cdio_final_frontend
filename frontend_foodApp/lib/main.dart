@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           //primarySwatch: primaryColour,
-          //secondaryHeaderColor: secondaryColour
+          secondaryHeaderColor: secondaryColour
           ),
       home: MultiProvider(
         child: MyHomePage(),
