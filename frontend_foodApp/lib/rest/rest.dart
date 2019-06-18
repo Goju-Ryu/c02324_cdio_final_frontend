@@ -9,7 +9,7 @@ final String _root = 'http://10.0.2.2:8080/rest/food/user';
 
 
 Future<FoodDTO> getFood(String userName, int foodId) async {
-  String url = _root + "/" + userName + "/get" + foodId.toString();
+  String url = _root + "/" + userName + "/get/" + foodId.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
 
   final response = await http.get(url, headers: headers);
@@ -49,7 +49,7 @@ Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   }
 }
 
-Future<List<FoodDTO>> getList(String userName) async {
+Future<List<FoodDTO>> getAllFood(String userName) async {
   String url = _root + "/" + userName + "/get";
   Map<String, String> headers = {"Content-type": "application/json"};
 
@@ -88,7 +88,7 @@ Future<String> addFood({Map<String, String> ingredient}) async {
 }
 
 Future<String> deleteFood(String userName, int foodId) async {
-  String url = _root + "/" + userName + "/delete" + foodId.toString();
+  String url = _root + "/" + userName + "/delete/" + foodId.toString();
   print(url);
   final response = await http.delete(url);
 
