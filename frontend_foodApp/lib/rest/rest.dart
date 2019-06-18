@@ -49,8 +49,8 @@ Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   }
 }
 
-Future<List<FoodDTO>> getAllFood(String userName) async {
-  String url = _root + "/" + userName + "/get";
+Future<List<FoodDTO>> getAllFood(String userName, String location) async {
+  String url = _root + "/" + userName + "/get/storage/" + location;
   Map<String, String> headers = {"Content-type": "application/json"};
 
   final response = await http.get(url, headers: headers);
