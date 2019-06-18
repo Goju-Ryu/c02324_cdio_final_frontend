@@ -84,4 +84,4 @@ class FoodList with ChangeNotifier {
 
 }
 
-enum ELocation { freezer, fridge, pantry }
+enum ELocation { freezer, fridge, pantry, expired }

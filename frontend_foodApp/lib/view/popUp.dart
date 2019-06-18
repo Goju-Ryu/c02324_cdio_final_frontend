@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:semester2_cdio_final/rest/foodDTO.dart';
 import 'package:semester2_cdio_final/view/pages/listView.dart';
+import 'package:semester2_cdio_final/util/sharedStates.dart';
+import 'package:semester2_cdio_final/rest/rest.dart';
 
-class Notification{
+
+class PopNotification{
   information(BuildContext context, List<FoodDTO> itemList){
     return showDialog(
         context: context,
@@ -12,7 +15,7 @@ class Notification{
         title: Text("The following items are about to expire"),
         content: ListBody(
           children: <Widget>[
-
+            ItemList(ELocation.expired),
 
             FlatButton(
               onPressed: () => Navigator.pop(context),
