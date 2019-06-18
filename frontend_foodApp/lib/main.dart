@@ -16,7 +16,7 @@ import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
+  String stdUser = "Pur";
 
   // This widget is the root of your application.
   @override
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       home: MultiProvider(
         child: MyHomePage(),
           providers: [
-            ChangeNotifierProvider(builder: (_) => AppState("Pur")),
-            ChangeNotifierProvider(builder: (_) => FoodList(false)), //Turn true to use a list of data with no need for the rest service
+            ChangeNotifierProvider(builder: (_) => AppState(stdUser)),
+            ChangeNotifierProvider(builder: (_) => FoodList.restList(stdUser)), //Use '.dummyList()' instead of '.restList(stdUser)' to use a list of data with no need for the rest service
           ]
       ),
     );

@@ -25,7 +25,12 @@ class AppState with ChangeNotifier {
   }
 
   void setUser(String userName) {
-    this._user = userName; //TODO check if valid over rest
+    bool b;
+    rest.verifyUser(userName).then((response){b = response;});
+    if (b)
+      this._user = userName;
+    else
+      throw new Exception("Couldn't find requested user");
   }
 
   String getUser() {
@@ -35,17 +40,18 @@ class AppState with ChangeNotifier {
 
 
 class FoodList with ChangeNotifier {
+  bool _useDummyList;
   List<FoodDTO> _list;
 
-  FoodList (bool useDummyList) {
-    List<FoodDTO> list;
-    
-    if (useDummyList)
-      list = this._getDummyData();
-    else 
-      rest.getList().then((flist) {list = flist;});
-      
-    this._list = list;
+  FoodList.dummyList () {
+    this._useDummyList = true;
+    this._list = this._getDummyData();
+  }
+
+  FoodList.restList(String user) {
+    this._useDummyList = false;
+    rest.getFoodList(user, "Freezer").then((futureList) {this._list = futureList;});
+
   }
 
   void setList(List<FoodDTO> list) {

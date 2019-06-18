@@ -49,7 +49,7 @@ Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   }
 }
 
-Future<List<FoodDTO>> getAllFood(String userName, String location) async {
+Future<List<FoodDTO>> getFoodList(String userName, String location) async {
   String url = _root + "/" + userName + "/get/storage/" + location;
   Map<String, String> headers = {"Content-type": "application/json"};
 
@@ -170,16 +170,18 @@ Future<String> deleteUser(String userName) async {
   }
 }
 
-Future<String> verifyUser(String userName) async {
+Future<bool> verifyUser(String userName) async {
   String url = _root + "/" + userName + "/get/verify";
   print(url);
 
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
-    //404
     //if server returns okay
-    return "User exists";
+    return true;
+  } else if (response.statusCode == 404) {
+    //user doesn't exist
+    return false;
   } else {
     //if response was not okay, throw an error
     print('User does not exist');
