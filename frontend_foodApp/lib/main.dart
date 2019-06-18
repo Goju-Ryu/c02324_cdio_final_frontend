@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
           secondaryHeaderColor: secondaryColour),
       home: MultiProvider(child: MyHomePage(), providers: [
         ChangeNotifierProvider(builder: (_) => AppState(stdUser)),
-        ChangeNotifierProvider(
-            builder: (_) => FoodList.dummyList()),//restList(stdUser)), //Use '.dummyList()' instead of '.restList(stdUser)' to use a list of data with no need for the rest service
+//        ChangeNotifierProvider(
+//            builder: (_) => FoodList.dummyList()),//restList(stdUser)), //Use '.dummyList()' instead of '.restList(stdUser)' to use a list of data with no need for the rest service
       ]),
     );
   }

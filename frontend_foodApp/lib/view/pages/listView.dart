@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:semester2_cdio_final/rest/foodDTO.dart';
+import 'package:semester2_cdio_final/util/foodDTO.dart';
+import 'package:semester2_cdio_final/util/enums.dart';
+import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/util/sharedStates.dart';
 import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
 
@@ -32,9 +34,11 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final foodList = Provider.of<FoodList>(context);
+    final appState = Provider.of<AppState>(context);
+    List<FoodDTO> itemList;
+    rest.getFoodList(appState.getUser(), getLocationName(this._location)).then((futureList){itemList = futureList;});
     return
-        ListView(children: createButtonList(foodList.getList(this._location))
+        ListView(children: createButtonList(itemList)
     );
   }
 }

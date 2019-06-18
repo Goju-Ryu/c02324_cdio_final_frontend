@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:semester2_cdio_final/rest/foodDTO.dart';
+import 'package:provider/provider.dart';
+import 'package:semester2_cdio_final/util/foodDTO.dart';
+import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
+import 'package:semester2_cdio_final/rest/rest.dart' as rest;
+
 
 class Item extends StatelessWidget {
   final FoodDTO _foodItem;
+  AppState _appState;
+  //FoodList _foodList;
 
   Item(this._foodItem);
 
@@ -12,11 +18,14 @@ class Item extends StatelessWidget {
   }
 
   void delete() {
-    //Todo: implement delete
+    //_foodList.removeFromList(_foodItem);
+    rest.deleteFood(_appState.getUser(), this._foodItem.foodId);
   }
 
   @override
   Widget build(BuildContext context) {
+    this._appState = Provider.of<AppState>(context);
+    //this._foodList = Provider.of<FoodList>(context);
     return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[

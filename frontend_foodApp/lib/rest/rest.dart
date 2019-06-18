@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:semester2_cdio_final/rest/foodDTO.dart';
+import 'package:semester2_cdio_final/util/foodDTO.dart';
 
 final String _root = 'http://10.0.2.2:8080/rest/food/user';
 
