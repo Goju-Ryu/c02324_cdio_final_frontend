@@ -4,6 +4,7 @@ import 'package:semester2_cdio_final/util/foodDTO.dart';
 import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
 import 'package:semester2_cdio_final/rest/rest.dart' as rest;
+import 'package:semester2_cdio_final/view/pages/modifyItem.dart';
 
 
 class Item extends StatelessWidget {
@@ -14,7 +15,7 @@ class Item extends StatelessWidget {
   Item(this._foodItem);
 
   void update() {
-    //Todo: implement update
+    _appState.selectPage(ModifyItem(_foodItem));
   }
 
   void delete() {
