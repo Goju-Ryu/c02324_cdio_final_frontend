@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:semester2_cdio_final/util/stdColours.dart';
+import 'package:semester2_cdio_final/util/foodDTO.dart';
 
 class ModifyItem extends StatelessWidget {
-  final _item;
+  final FoodDTO _item;
 
   ModifyItem(this._item);
 
@@ -17,7 +18,7 @@ class ModifyItem extends StatelessWidget {
           fit: FlexFit.tight,
           flex: 1,
             child: MaterialButton(
-                onPressed: () => _createDialog(context, "Change name", "SampleName"/*TODO add getter for starting content (name)*/),
+                onPressed: () => _createDialog(context, "Change name", _item.foodName),
               color: secondaryColour,
               splashColor: btnSplashColour,
               highlightColor: btnHighlightColour,
@@ -32,7 +33,7 @@ class ModifyItem extends StatelessWidget {
           fit: FlexFit.tight,
           flex: 1,
           child: MaterialButton(
-            onPressed: () => _createDialog(context, "Change category", "SampleCategory"/*TODO add getter for starting content (category)*/),
+            onPressed: () => _createDialog(context, "Change category", _item.category),
             color: secondaryColour,
             splashColor: btnSplashColour,
             highlightColor: btnHighlightColour,
@@ -47,7 +48,7 @@ class ModifyItem extends StatelessWidget {
           fit: FlexFit.tight,
           flex: 1,
           child: MaterialButton(
-            onPressed: () => _createDialog(context, "Change expiration date", "SampleDate"/*TODO add getter for starting content (date)*/),
+            onPressed: () => _createDialog(context, "Change expiration date", _item.expDate),
             color: secondaryColour,
             splashColor: btnSplashColour,
             highlightColor: btnHighlightColour,
@@ -62,7 +63,7 @@ class ModifyItem extends StatelessWidget {
           fit: FlexFit.tight,
           flex: 1,
           child: MaterialButton(
-            onPressed: () => _createDialog(context, "Change location", "SampleLocation"/*TODO add getter for starting content (location)*/),
+            onPressed: () => _createDialog(context, "Change location", _item.location),
             color: secondaryColour,
             splashColor: btnSplashColour,
             highlightColor: btnHighlightColour,
@@ -104,7 +105,7 @@ class ModifyItem extends StatelessWidget {
         actions: <Widget>[
           MaterialButton(
               onPressed: () {
-//TODO add saving of data
+                //TODO add saving of data
                 Navigator.of(context).pop();
               },
               child: Text("Confirm"),
