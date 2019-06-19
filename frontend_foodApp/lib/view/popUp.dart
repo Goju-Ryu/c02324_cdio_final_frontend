@@ -1,30 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:semester2_cdio_final/rest/foodDTO.dart';
-import 'package:semester2_cdio_final/view/pages/listView.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/rest/rest.dart';
+import 'package:semester2_cdio_final/util/foodDTO.dart';
+
 
 class PopNotification {
-  PopNotification(List<FoodDTO> itemList);
+  final List<FoodDTO> _itemList;
 
-  information(BuildContext context, List<FoodDTO> itemList) {
+  PopNotification(this._itemList);
+
+  information(BuildContext context) {
     return showDialog(
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
+          print("Builder! ");
           return AlertDialog(
-              title: Text("The following items are about to expire"),
-              content: ListBody(
-                children: <Widget>[
-                  ListView(children:
-                    itemList.map((food) => Card(child: Text(food.foodName))).toList()
-                   ),
-                  FlatButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: Text("OK"),
-                  )
-                ],
+              title: Text("The following items are about to expire in less than 3 days:"),
+              content: Container(
+                height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width - 20,
+                child: Column(
+                  children: [
+
+                    Container(
+                      height: 170.0,
+                      width: 300,
+
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: getCards(_itemList),
+
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text("OK"),
+                    )
+                  ],
+                ),
               ));
         });
+  }
+
+  List<Widget> getCards(List<FoodDTO> list) {
+    return list
+        .map((food) => Card(
+      child: Text(food.foodName),
+    ))
+        .toList();
   }
 }
