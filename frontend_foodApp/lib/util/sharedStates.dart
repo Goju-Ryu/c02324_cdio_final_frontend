@@ -7,8 +7,10 @@ import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
 class AppState with ChangeNotifier {
   String _user;
   Widget _page;
+  int _notificationSetting; //TODO needs to be controlled in Settings
 
   AppState(this._user, {Widget page}){
+    _notificationSetting = 5;
     if (page != null)
       this._page = page;
     else
@@ -36,6 +38,10 @@ class AppState with ChangeNotifier {
   String getUser() {
     return this._user;
   }
+
+  int getNotificationSetting(){
+    return _notificationSetting;
+  }
 }
 
 
@@ -56,7 +62,7 @@ class FoodList with ChangeNotifier {
     this._useDummyList = false;
     rest.getFoodList(user, "Freezer").then((futureList) {this._freezerList = futureList;});
     rest.getFoodList(user, "Fridge").then((futureList) {this._fridgeList = futureList;});
-    rest.getFoodList(user, "Pantry").then((futureList) {this._pantryList = futureList;});
+   // rest.getFoodList(user, "Pantry").then((futureList) {this._pantryList = futureList;});
   }
 
   void setList(List<FoodDTO> list) {

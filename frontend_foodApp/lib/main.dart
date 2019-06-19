@@ -60,8 +60,19 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   @override
+
+  void initState(){
+    super.initState();
+   // var appState = Provider.of<AppState>(context);
+
+
+
+
+  }
+
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
+    popUp(appState);
     return Scaffold(
       appBar: AppBar(
         title: Text("Food app - demo"),
@@ -89,6 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: appState.getPage(),
     );
+  }
+
+  void popUp(AppState appState) async {
+    print("jeg er her!");
+    List<FoodDTO> isExpiring = await rest.getExpiredFood(appState.getUser(), appState.getNotificationSetting());
+    print(isExpiring);
+    if (isExpiring.length != null || isExpiring.length != 0 ){
+      print("kommer jeg her ind!?");
+      PopNotification(isExpiring);
+    }
+
   }
 }
 
