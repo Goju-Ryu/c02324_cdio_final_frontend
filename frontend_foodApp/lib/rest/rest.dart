@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:semester2_cdio_final/util/foodDTO.dart';
 
-final String _root = 'http://10.0.2.2:8080/rest/food/user';
+final String _root = 'http://10.16.167.245:8080/rest/food/user';
 
 
 
@@ -30,12 +30,13 @@ Future<FoodDTO> getFood(String userName, int foodId) async {
 Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   String url = _root + "/" + userName + "/get/expire/" + days.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
-
+  print("før");
   final response = await http.get(url, headers: headers);
-
+    print("på den anden side");
   if (response.statusCode == 200) {
     //400
     //if server returns okay
+    print("wuhu");
     Iterable foods = json.decode(response.body); //Henrik
     return foods
         .map((foodElement) => FoodDTO.fromJson(foodElement))
