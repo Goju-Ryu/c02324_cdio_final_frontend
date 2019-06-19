@@ -72,11 +72,11 @@ Future<List<FoodDTO>> getFoodList(String userName, int location) async {
   }
 }
 
-Future<String> addFood({Map<String, String> ingredient}) async {
+Future<String> addFood([Map<String, String> food]) async {
   String url = _root;
   Map<String, String> header = {"Content-type": "application/json"};
-
-  final response = await http.post(url, headers: header, body: jsonEncode(ingredient), encoding: Encoding.getByName("json"));
+  print("Adding food: " + food.toString());
+  final response = await http.post(url, headers: header, body: jsonEncode(food), encoding: Encoding.getByName("json"));
 
   if (response.statusCode == 200) {
     return "Food successfully created";

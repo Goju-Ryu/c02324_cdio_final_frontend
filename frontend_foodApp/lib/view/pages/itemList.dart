@@ -45,7 +45,7 @@ class ItemList extends StatelessWidget {
             return
             Card(
               child: ListTile(
-                title: Text("Error: " + snapshot.error),
+                title: Text("Error: " + snapshot.error.toString()),
               ),
             );
           }
