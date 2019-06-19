@@ -5,7 +5,7 @@ import 'package:semester2_cdio_final/util/buttonStyles.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
 import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/view/pages/listView.dart';
+import 'package:semester2_cdio_final/view/pages/itemList.dart';
 
 class MainMenu extends StatelessWidget {
   @override

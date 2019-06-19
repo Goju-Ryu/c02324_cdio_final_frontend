@@ -5,6 +5,7 @@ import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
 import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/view/pages/modifyItem.dart';
+import 'package:semester2_cdio_final/view/pages/itemList.dart';
 
 
 class Item extends StatelessWidget {
@@ -21,6 +22,7 @@ class Item extends StatelessWidget {
   void delete() {
     //_foodList.removeFromList(_foodItem);
     rest.deleteFood(_appState.getUser(), this._foodItem.foodId);
+    _appState.selectPage(ItemList(getLocationEnum(_foodItem.location)));
   }
 
   @override

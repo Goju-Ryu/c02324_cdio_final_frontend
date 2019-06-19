@@ -11,10 +11,22 @@ String getLocationName(ELocation loc) {
     case ELocation.Pantry:
       return "Pantry";
     default:
-      throw new Exception("UnKnown Location");
+      throw new Exception("Unknown Location");
   }
 }
 
+ELocation getLocationEnum(String loc) {
+  switch (loc) {
+    case "Freezer":
+      return ELocation.Freezer;
+    case "Fridge":
+      return ELocation.Fridge;
+    case "Pantry":
+      return ELocation.Pantry;
+    default:
+      throw new Exception("Unknown Location");
+  }
+}
 
 enum ECategory {
   Fish, Beef, Poultry, Pork, Vegetable, Fruit, Dairy, Bread, Other

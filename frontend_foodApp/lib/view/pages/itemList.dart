@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -35,11 +36,31 @@ class ItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-    List<FoodDTO> itemList;
-    rest.getFoodList(appState.getUser(), getLocationName(this._location)).then((futureList){itemList = futureList;});
     return
-        ListView(children: createButtonList(itemList)
-    );
+      FutureBuilder(
+        future: rest.getFoodList(appState.getUser(), getLocationName(this._location)),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print("Error: " + snapshot.error);
+            return
+            Card(
+              child: ListTile(
+                title: Text("Error: " + snapshot.error),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+
+            return
+              ListView(children: createButtonList(snapshot.data));
+          }
+            return Center(child: CircularProgressIndicator());
+
+        },
+
+      );
+
+
   }
 }
 
