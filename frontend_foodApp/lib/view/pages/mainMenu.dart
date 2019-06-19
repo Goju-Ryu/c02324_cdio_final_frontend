@@ -22,7 +22,7 @@ class MainMenu extends StatelessWidget {
           child: MaterialButton(
             child: Text(
               "Freezer",
-              style: CustomTextStyle.btnTxtStyle(),
+              style: btnTxtStyle,
             ),
             onPressed: () {appState.selectPage(ItemList(ELocation.Freezer));},
             color: secondaryColour,
@@ -36,7 +36,7 @@ class MainMenu extends StatelessWidget {
           child: MaterialButton(
             child: Text(
               "Refrigerator",
-              style: CustomTextStyle.btnTxtStyle(),
+              style: btnTxtStyle,
             ),
             onPressed: () {appState.selectPage(ItemList(ELocation.Fridge));},
             color: secondaryColour,
@@ -50,7 +50,7 @@ class MainMenu extends StatelessWidget {
           child: MaterialButton(
             child: Text(
               "Pantry",
-              style: CustomTextStyle.btnTxtStyle(),
+              style: btnTxtStyle,
             ),
             onPressed: () {appState.selectPage(ItemList(ELocation.Pantry));},
             color: secondaryColour,
