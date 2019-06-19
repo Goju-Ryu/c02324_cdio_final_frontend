@@ -38,7 +38,7 @@ class ItemList extends StatelessWidget {
     final appState = Provider.of<AppState>(context);
     return
       FutureBuilder(
-        future: rest.getFoodList(appState.getUser(), getLocationName(this._location)),
+        future: rest.getFoodList(appState.getUser(), this._location.index),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             print("Error: " + snapshot.error);
