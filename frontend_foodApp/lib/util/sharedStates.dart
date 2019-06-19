@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:semester2_cdio_final/util/foodDTO.dart';
-import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
 
 class AppState with ChangeNotifier {
   String _user;
   Widget _page;
+  int _notificationSetting; //TODO needs to be controlled in Settings
 
-  AppState(this._user, {Widget page}) {
+  AppState(this._user, {Widget page}){
+    _notificationSetting = 2;
     if (page != null)
       this._page = page;
     else
@@ -37,6 +37,10 @@ class AppState with ChangeNotifier {
 
   String getUser() {
     return this._user;
+  }
+
+  int getNotificationSetting(){
+    return _notificationSetting;
   }
 }
 

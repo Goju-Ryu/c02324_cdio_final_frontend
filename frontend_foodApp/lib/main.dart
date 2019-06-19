@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
+
+import 'package:semester2_cdio_final/util/foodDTO.dart';
+import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/util/stdColours.dart';
+import 'package:semester2_cdio_final/util/sharedStates.dart';
 import 'package:semester2_cdio_final/view/pages/createItem.dart';
+import 'package:semester2_cdio_final/view/popUp.dart';
+
 import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
+
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  String stdUser = "Pur";
+  String stdUser = "TestUser";
 
   // This widget is the root of your application.
   @override
@@ -44,9 +50,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool needsNotification = true;
+
   @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
+    popUp(appState, context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Food app - demo"),
@@ -83,5 +96,20 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ]),
     );
+  }
+
+  popUp(AppState appState, BuildContext context) async {
+    print("jeg er her!");
+    if (needsNotification == true) {
+      List<FoodDTO> isExpiring = await rest.getExpiredFood(
+          appState.getUser(), appState.getNotificationSetting());
+      print(isExpiring);
+      if (isExpiring != null || isExpiring.length != 0) {
+        print("kommer jeg her ind!?");
+        PopNotification popNotification = PopNotification(isExpiring);
+        popNotification.information(context);
+        needsNotification = false;
+      }
+    }
   }
 }
