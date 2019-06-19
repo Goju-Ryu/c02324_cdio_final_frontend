@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:semester2_cdio_final/util/textStyles.dart';
 import 'package:semester2_cdio_final/util/buttonStyles.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
+import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/view/pages/listView.dart';
+import 'package:semester2_cdio_final/view/pages/itemList.dart';
 
 class MainMenu extends StatelessWidget {
   @override
@@ -13,15 +14,6 @@ class MainMenu extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        //TODO: Delete when testing has finished
-        SizedBox(
-          height: 50,
-          width: 50,
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  color: primaryColour)
-          ),
-        ),
 
         //Freezer
         Flexible(
@@ -32,7 +24,7 @@ class MainMenu extends StatelessWidget {
               "Freezer",
               style: CustomTextStyle.btnTxtStyle(),
             ),
-            onPressed: () {appState.selectPage(ItemList(ELocation.freezer));},
+            onPressed: () {appState.selectPage(ItemList(ELocation.Freezer));},
             color: secondaryColour,
           ),
         ),
@@ -46,7 +38,7 @@ class MainMenu extends StatelessWidget {
               "Refrigerator",
               style: CustomTextStyle.btnTxtStyle(),
             ),
-            onPressed: () {appState.selectPage(ItemList(ELocation.fridge));},
+            onPressed: () {appState.selectPage(ItemList(ELocation.Fridge));},
             color: secondaryColour,
           ),
         ),
@@ -60,19 +52,10 @@ class MainMenu extends StatelessWidget {
               "Pantry",
               style: CustomTextStyle.btnTxtStyle(),
             ),
-            onPressed: () {appState.selectPage(ItemList(ELocation.pantry));},
+            onPressed: () {appState.selectPage(ItemList(ELocation.Pantry));},
             color: secondaryColour,
           ),
         ),
-        //TODO: Delete box when finished testing
-        SizedBox(
-          height: 50,
-            width: 50,
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  color: primaryColour)
-          ),
-        )
       ],
     );
   }
