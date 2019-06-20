@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
@@ -25,24 +24,19 @@ class _CreateItemState extends State<CreateItem> {
         context: context,
         initialDate: DateTime.now().add(Duration(days: 1)),
         firstDate: DateTime.now().add(Duration(days: -1)),
-        lastDate: DateTime(DateTime
-            .now()
-            .year + 30) // last date is current year + 30 years
-    );
+        lastDate: DateTime(
+            DateTime.now().year + 30) // last date is current year + 30 years
+        );
+
+    setState((){});
   }
 
   Widget build(BuildContext context) {
     final _appState = Provider.of<AppState>(context);
     return SingleChildScrollView(
       child: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
-        height: MediaQuery
-            .of(context)
-            .size
-            .height,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Column(
           children: <Widget>[
             Column(
@@ -76,21 +70,23 @@ class _CreateItemState extends State<CreateItem> {
                     isExpanded: true,
                   ),
                   (_location == ELocation.Freezer &&
-                      _category != ECategory.Other)
+                          _category != ECategory.Other)
                       ? Container()
                       : FlatButton(
-                    color: btnHighlightColour,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(Icons.calendar_today),
-                          (_expDate == null)
-                              ? Text("Pick expiration date")
-                              : Text(_expDate.toString(), style: btnTxtStyle,)
-                        ]),
-                    onPressed: _pickDate,
-                  ),
-
+                          color: btnHighlightColour,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(Icons.calendar_today),
+                                (_expDate == null)
+                                    ? Text("Pick expiration date")
+                                    : Text(
+                                        _expDate.toString(),
+                                        //style: btnTxtStyle,
+                                      )
+                              ]),
+                          onPressed: _pickDate,
+                        ),
                   SizedBox(height: 30),
                   RaisedButton(
                     onPressed: () {
@@ -109,8 +105,9 @@ class _CreateItemState extends State<CreateItem> {
                             "You have to enter a category for your food");
                         return;
                       }
-                      if (_expDate == null && (_location != ELocation.Freezer ||
-                          _category == ECategory.Other)) {
+                      if (_expDate == null &&
+                          (_location != ELocation.Freezer ||
+                              _category == ECategory.Other)) {
                         _createDialog(context, "Error",
                             "You have to enter a date for your food");
                         return;
@@ -145,7 +142,7 @@ class _CreateItemState extends State<CreateItem> {
 
 List<DropdownMenuItem> generateSelectionList(List list) {
   List<DropdownMenuItem<dynamic>> menuItems =
-  new List<DropdownMenuItem<dynamic>>();
+      new List<DropdownMenuItem<dynamic>>();
   for (int i = 0; i < list.length; i++) {
     menuItems.add(new DropdownMenuItem(
       value: list[i],
@@ -156,11 +153,9 @@ List<DropdownMenuItem> generateSelectionList(List list) {
 }
 
 _createSnackBar(BuildContext context, String content) {
-  Scaffold.of(context).showSnackBar(
-      new SnackBar(
-        content: Text(content),
-      )
-  );
+  Scaffold.of(context).showSnackBar(new SnackBar(
+    content: Text(content),
+  ));
 }
 
 _createDialog(BuildContext context, String title, String content) {
@@ -179,6 +174,5 @@ _createDialog(BuildContext context, String title, String content) {
             )
           ],
         );
-      }
-  );
+      });
 }
