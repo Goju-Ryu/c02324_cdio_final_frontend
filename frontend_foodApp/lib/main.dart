@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
     popUp(appState, context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Food app - demo"),
+        title: Text("FoodTracker by Group14"),
       ),
       floatingActionButton: Stack(
         children: <Widget>[
