@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:semester2_cdio_final/rest/rest.dart' as rest;
 import 'package:semester2_cdio_final/util/enums.dart';
+import 'package:semester2_cdio_final/util/sharedStates.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
 import 'package:semester2_cdio_final/util/textStyles.dart';
 
@@ -27,6 +30,7 @@ class _CreateItemState extends State<CreateItem> {
   }
 
   Widget build(BuildContext context) {
+    final _appState = Provider.of<AppState>(context);
     return SingleChildScrollView(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -98,6 +102,7 @@ class _CreateItemState extends State<CreateItem> {
                         return;
                       }
                         rest.addFood({
+                          "userName": _appState.getUser(),
                           "foodName": _foodName.text,
                           "location": getLocationName(_location),
                           "category": getCategoryName(_category),
