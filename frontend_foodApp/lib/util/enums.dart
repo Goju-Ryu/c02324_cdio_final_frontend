@@ -11,7 +11,7 @@ String getLocationName(ELocation loc) {
     case ELocation.Pantry:
       return "Pantry";
     default:
-      throw new Exception("Unknown Location");
+      throw new Exception("Unknown Location: \"" + loc.toString() + "\"");
   }
 }
 
@@ -24,7 +24,7 @@ ELocation getLocationEnum(String loc) {
     case "Pantry":
       return ELocation.Pantry;
     default:
-      throw new Exception("Unknown Location");
+      throw new Exception("Unknown Location: \"" + loc + "\"");
   }
 }
 

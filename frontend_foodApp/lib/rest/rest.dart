@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:semester2_cdio_final/util/foodDTO.dart';
 
-final String _root = 'http://10.16.167.245:8080/rest/food/user';
+final String _root = 'http://10.16.164.98:8080/rest/food/user';
 
 
 
@@ -77,14 +77,14 @@ Future<String> addFood([Map<String, String> food]) async {
   print("Adding food: " + food.toString());
   final response = await http.post(url, headers: header, body: jsonEncode(food), encoding: Encoding.getByName("json"));
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     print("Food successfully created");
     return "Food successfully created";
   } else {
     print('Error in food creation');
     print("Error type: " + response.statusCode.toString());
     print(response.body);
-    throw Exception('Failed to create food');
+    return 'Failed to create food';
   }
 }
 
