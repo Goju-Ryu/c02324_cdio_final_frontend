@@ -77,16 +77,26 @@ class _CreateItemState extends State<CreateItem> {
                     ]),
                     onPressed: _pickDate,
                   ),
-//                    TextFormField(
-//                      decoration: InputDecoration(
-//                          // TODO replace with scrolling date
-//                          labelText: "Expiration"),
-//                      controller: _expDate,
-//                    ),
+
                   SizedBox(height: 30),
                   RaisedButton(
                     onPressed: () {
-                      //if (_foodName.text = null) {}
+                      if (_foodName.text == null) {
+                        _createDialog(context, "Error", "You have to enter a name of your food");
+                        return;
+                      }
+                      if (_location == null) {
+                        _createDialog(context, "Error", "You have to enter a location for your food");
+                        return;
+                      }
+                      if (_category == null) {
+                        _createDialog(context, "Error", "You have to enter a category for your food");
+                        return;
+                      }
+                      if (_expDate == null && (_location != ELocation.Freezer || _category == ECategory.Other)) {
+                        _createDialog(context, "Error", "You have to enter a name of your food");
+                        return;
+                      }
                         rest.addFood({
                           "foodName": _foodName.text,
                           "location": getLocationName(_location),
@@ -114,4 +124,25 @@ List<DropdownMenuItem> generateSelectionList(List list) {
     ));
   }
   return menuItems;
+}
+
+
+_createDialog(BuildContext context, String title, String content){
+  showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: <Widget>[
+            MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Confirm"),
+            )
+          ],
+        );
+      }
+  );
 }

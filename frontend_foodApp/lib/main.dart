@@ -33,11 +33,8 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           //primarySwatch: primaryColour,
           secondaryHeaderColor: secondaryColour),
-      home: MultiProvider(child: MyHomePage(), providers: [
-        ChangeNotifierProvider(builder: (_) => AppState(stdUser)),
-//        ChangeNotifierProvider(
-//            builder: (_) => FoodList.dummyList()),//restList(stdUser)), //Use '.dummyList()' instead of '.restList(stdUser)' to use a list of data with no need for the rest service
-      ]),
+      home:
+        ChangeNotifierProvider(builder: (_) => AppState(stdUser), child: MyHomePage()),
     );
   }
 }
@@ -99,13 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   popUp(AppState appState, BuildContext context) async {
-    print("jeg er her!");
     if (needsNotification == true) {
       List<FoodDTO> isExpiring = await rest.getExpiredFood(
           appState.getUser(), appState.getNotificationSetting());
       print(isExpiring);
       if (isExpiring != null || isExpiring.length != 0) {
-        print("kommer jeg her ind!?");
         PopNotification popNotification = PopNotification(isExpiring);
         popNotification.information(context);
         needsNotification = false;

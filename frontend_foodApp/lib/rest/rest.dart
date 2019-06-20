@@ -30,13 +30,11 @@ Future<FoodDTO> getFood(String userName, int foodId) async {
 Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   String url = _root + "/" + userName + "/get/expire/" + days.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
-  print("før");
   final response = await http.get(url, headers: headers);
     print("på den anden side");
   if (response.statusCode == 200) {
     //400
     //if server returns okay
-    print("wuhu");
     Iterable foods = json.decode(response.body); //Henrik
     return foods
         .map((foodElement) => FoodDTO.fromJson(foodElement))
@@ -80,6 +78,7 @@ Future<String> addFood([Map<String, String> food]) async {
   final response = await http.post(url, headers: header, body: jsonEncode(food), encoding: Encoding.getByName("json"));
 
   if (response.statusCode == 200) {
+    print("Food successfully created");
     return "Food successfully created";
   } else {
     print('Error in food creation');
