@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:semester2_cdio_final/util/stdColours.dart';
 import 'package:semester2_cdio_final/util/foodDTO.dart';
 import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
@@ -57,9 +58,9 @@ class Item extends StatelessWidget {
                   style: TextStyle(fontSize: 36),
                 ),
                 onPressed: update,
-                textColor: Colors.red,
-                splashColor: Colors.redAccent,
-                color: Theme.of(context).accentColor,
+                textColor: btnTextColour,
+                splashColor: btnSplashColour,
+                color: secondaryColour,
               )),
           Flexible(
             fit: FlexFit.tight,
@@ -71,9 +72,9 @@ class Item extends StatelessWidget {
                 style: TextStyle(fontSize: 36),
               ),
               onPressed: delete,
-              textColor: Colors.red,
-              splashColor: Colors.redAccent,
-              color: Theme.of(context).accentColor,
+              textColor: btnTextColour,
+              splashColor: btnSplashColour,
+              color: secondaryColour,
             ),
           )
         ]
