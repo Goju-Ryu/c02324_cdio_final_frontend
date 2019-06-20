@@ -17,16 +17,16 @@ class ModifyItem extends StatelessWidget {
         Flexible(
           fit: FlexFit.tight,
           flex: 1,
-            child: MaterialButton(
-                onPressed: () => _createDialog(context, "Change name", _item.foodName),
-              color: secondaryColour,
-              splashColor: btnSplashColour,
-              highlightColor: btnHighlightColour,
-              disabledColor: btnDisabledColour,
-              child: Text(
+          child: MaterialButton(
+            onPressed: () => _createDialog(context, "Change name", _item.foodName),
+            color: secondaryColour,
+            splashColor: btnSplashColour,
+            highlightColor: btnHighlightColour,
+            disabledColor: btnDisabledColour,
+            child: Text(
                 'Salmon'
-              ),
             ),
+          ),
         ),
         //Change Category
         Flexible(
@@ -92,27 +92,28 @@ class ModifyItem extends StatelessWidget {
   }
 
   _createDialog(BuildContext context, String title, String startContent){
-    showDialog(context: context,
-    builder: (BuildContext context){
-      return AlertDialog(
-        title: Text(title),
-        content: TextField(
-          decoration: InputDecoration(
-              hintText: startContent,
-          ),
-          autofocus: true,
-        ),
-        actions: <Widget>[
-          MaterialButton(
-              onPressed: () {
-                //TODO add saving of data
-                Navigator.of(context).pop();
-              },
-              child: Text("Confirm"),
-          )
-        ],
-      );
-    }
+    showDialog(
+        context: context,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Text(title),
+            content: TextField(
+              decoration: InputDecoration(
+                hintText: startContent,
+              ),
+              autofocus: true,
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                onPressed: () {
+                  //TODO add saving of data
+                  Navigator.of(context).pop();
+                },
+                child: Text("Confirm"),
+              )
+            ],
+          );
+        }
     );
   }
 }
