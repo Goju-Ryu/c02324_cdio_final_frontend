@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:semester2_cdio_final/util/foodDTO.dart';
@@ -15,12 +16,13 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   String stdUser = "TestUser";
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
     return MaterialApp(
       title: 'Food app - demo',
+
       theme: ThemeData(
           // This is the theme of your application.
           //

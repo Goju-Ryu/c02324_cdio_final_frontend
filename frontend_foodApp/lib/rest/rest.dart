@@ -13,7 +13,7 @@ int _isWritingToDB = 0;
 Future<FoodDTO> getFood(String userName, int foodId) async {
   String url = _root + "/" + userName + "/get/" + foodId.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
-  
+
   await _isReadReady();
 
   final response = await http.get(url, headers: headers);
@@ -89,9 +89,9 @@ Future<String> addFood([Map<String, String> food]) async {
 
   final response = await http.post(url, headers: header, body: jsonEncode(food), encoding: Encoding.getByName("json"));
 
+  if (response.statusCode == 201) {
   _isWritingToDB--;
 
-  if (response.statusCode == 201) {
     print("Food successfully created");
     return "Food successfully created";
   } else {
