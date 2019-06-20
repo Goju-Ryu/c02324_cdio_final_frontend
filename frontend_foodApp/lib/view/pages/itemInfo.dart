@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:semester2_cdio_final/util/foodDTO.dart';
-import 'package:semester2_cdio_final/util/enums.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/view/pages/modifyItem.dart';
-import 'package:semester2_cdio_final/view/pages/itemList.dart';
+import 'package:FoodTracker/util/stdColours.dart';
+import 'package:FoodTracker/util/textStyles.dart';
+import 'package:FoodTracker/util/foodDTO.dart';
+import 'package:FoodTracker/util/enums.dart';
+import 'package:FoodTracker/util/sharedStates.dart';
+import 'package:FoodTracker/rest/rest.dart' as rest;
+import 'package:FoodTracker/view/pages/modifyItem.dart';
+import 'package:FoodTracker/view/pages/itemList.dart';
 
 
 class Item extends StatelessWidget {
@@ -35,16 +38,42 @@ class Item extends StatelessWidget {
           Flexible(
             fit: FlexFit.tight,
             flex: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(this._foodItem.foodName),
-                Text(this._foodItem.category),
-                Text(this._foodItem.expDate),
-                Text(this._foodItem.location),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                    Text("Name:", style: labelStyle),
+                    Text(this._foodItem.foodName, style: itemListStyle)
+                  ],),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Category:", style: labelStyle),
+                      Text(this._foodItem.category, style: itemListStyle)
+                    ],),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Expiration date:", style: labelStyle),
+                      Text(this._foodItem.expDate, style: itemListStyle)
+                    ],),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Location:", style: labelStyle),
+                      Text(this._foodItem.location, style: itemListStyle)
+                    ],)
+                ],
+              ),
             ),
           ),
           Flexible(
@@ -57,9 +86,9 @@ class Item extends StatelessWidget {
                   style: TextStyle(fontSize: 36),
                 ),
                 onPressed: update,
-                textColor: Colors.red,
-                splashColor: Colors.redAccent,
-                color: Theme.of(context).accentColor,
+                textColor: btnTextColour,
+                splashColor: btnSplashColour,
+                color: secondaryColour,
               )),
           Flexible(
             fit: FlexFit.tight,
@@ -71,9 +100,9 @@ class Item extends StatelessWidget {
                 style: TextStyle(fontSize: 36),
               ),
               onPressed: delete,
-              textColor: Colors.red,
-              splashColor: Colors.redAccent,
-              color: Theme.of(context).accentColor,
+              textColor: btnTextColour,
+              splashColor: btnSplashColour,
+              color: secondaryColour,
             ),
           )
         ]

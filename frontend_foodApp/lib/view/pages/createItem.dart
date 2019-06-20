@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/util/enums.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/util/stdColours.dart';
-import 'package:semester2_cdio_final/util/textStyles.dart';
+import 'package:FoodTracker/rest/rest.dart' as rest;
+import 'package:FoodTracker/util/enums.dart';
+import 'package:FoodTracker/util/sharedStates.dart';
+import 'package:FoodTracker/util/stdColours.dart';
+import 'package:FoodTracker/util/textStyles.dart';
 
 class CreateItem extends StatefulWidget {
   @override
@@ -25,8 +25,11 @@ class _CreateItemState extends State<CreateItem> {
         context: context,
         initialDate: DateTime.now().add(Duration(days: 1)),
         firstDate: DateTime.now().add(Duration(days: -1)),
-        lastDate: DateTime(DateTime.now().year + 30) // last date is current year + 30 years
-    );
+        lastDate: DateTime(
+            DateTime.now().year + 30) // last date is current year + 30 years
+        );
+
+    setState((){});
   }
 
   Widget build(BuildContext context) {
@@ -67,48 +70,67 @@ class _CreateItemState extends State<CreateItem> {
                     hint: Text("Choose a cagory"),
                     isExpanded: true,
                   ),
-                  (_location == ELocation.Freezer && _category != ECategory.Other)
+                  (_location == ELocation.Freezer &&
+                          _category != ECategory.Other)
                       ? Container()
                       : FlatButton(
-                    color: btnHighlightColour,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                      Icon(Icons.calendar_today),
-                      (_expDate == null)
-                          ? Text("Pick expiration date")
-                          : Text(_expDate.toString(), style: btnTxtStyle,)
-                    ]),
-                    onPressed: _pickDate,
-                  ),
-
+                          color: btnHighlightColour,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(Icons.calendar_today),
+                                (_expDate == null)
+                                    ? Text("Pick expiration date")
+                                    : Text(
+                                        _expDate.toString(),
+                                        //style: btnTxtStyle,
+                                      )
+                              ]),
+                          onPressed: _pickDate,
+                        ),
                   SizedBox(height: 30),
                   RaisedButton(
                     onPressed: () {
-                      if (_foodName.text == null) {
-                        _createDialog(context, "Error", "You have to enter a name of your food");
+                      if (_foodName.text == null || _foodName.text == "") {
+                        _createDialog(context, "Error",
+                            "You have to enter a name of your food");
                         return;
                       }
                       if (_location == null) {
-                        _createDialog(context, "Error", "You have to enter a location for your food");
+                        _createDialog(context, "Error",
+                            "You have to enter a location for your food");
                         return;
                       }
                       if (_category == null) {
-                        _createDialog(context, "Error", "You have to enter a category for your food");
+                        _createDialog(context, "Error",
+                            "You have to enter a category for your food");
                         return;
                       }
-                      if (_expDate == null && (_location != ELocation.Freezer || _category == ECategory.Other)) {
-                        _createDialog(context, "Error", "You have to enter a name of your food");
+                      if (_expDate == null &&
+                          (_location != ELocation.Freezer ||
+                              _category == ECategory.Other)) {
+                        _createDialog(context, "Error",
+                            "You have to enter a date for your food");
                         return;
                       }
-                        rest.addFood({
-                          "userName": _appState.getUser(),
-                          "foodName": _foodName.text,
-                          "location": getLocationName(_location),
-                          "category": getCategoryName(_category),
-                          "expDate": _expDate.millisecondsSinceEpoch.toString(),
-                        });
-                    }, //TODO implement method
+
+                      rest.addFood({
+                        "userName": _appState.getUser(),
+                        "foodName": _foodName.text,
+                        "location": getLocationName(_location),
+                        "category": getCategoryName(_category),
+                        "expDate": _expDate.millisecondsSinceEpoch.toString(),
+                      }).then((onValue) {
+                        _createSnackBar(context, onValue);
+                      });
+
+                      setState(() {
+                        _foodName.text = "";
+                        _location = null;
+                        _category = null;
+                        _expDate = null;
+                      });
+                    },
                     child: const Text('Send', style: TextStyle(fontSize: 20)),
                   ),
                 ]),
@@ -121,7 +143,7 @@ class _CreateItemState extends State<CreateItem> {
 
 List<DropdownMenuItem> generateSelectionList(List list) {
   List<DropdownMenuItem<dynamic>> menuItems =
-  new List<DropdownMenuItem<dynamic>>();
+      new List<DropdownMenuItem<dynamic>>();
   for (int i = 0; i < list.length; i++) {
     menuItems.add(new DropdownMenuItem(
       value: list[i],
@@ -131,11 +153,16 @@ List<DropdownMenuItem> generateSelectionList(List list) {
   return menuItems;
 }
 
+_createSnackBar(BuildContext context, String content) {
+  Scaffold.of(context).showSnackBar(new SnackBar(
+    content: Text(content),
+  ));
+}
 
-_createDialog(BuildContext context, String title, String content){
+_createDialog(BuildContext context, String title, String content) {
   showDialog(
       context: context,
-      builder: (BuildContext context){
+      builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
           content: Text(content),
@@ -148,6 +175,5 @@ _createDialog(BuildContext context, String title, String content){
             )
           ],
         );
-      }
-  );
+      });
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/view/pages/mainMenu.dart';
+import 'package:flutter/services.dart';
+import 'package:FoodTracker/rest/rest.dart' as rest;
+import 'package:FoodTracker/view/pages/mainMenu.dart';
 
 class AppState with ChangeNotifier {
   String _user;

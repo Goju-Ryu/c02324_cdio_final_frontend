@@ -1,4 +1,4 @@
-# semester2_cdio_final
+# FoodTracker
 
 A new Flutter project.
 

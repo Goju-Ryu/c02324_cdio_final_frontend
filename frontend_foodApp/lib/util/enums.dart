@@ -11,7 +11,7 @@ String getLocationName(ELocation loc) {
     case ELocation.Pantry:
       return "Pantry";
     default:
-      throw new Exception("Unknown Location");
+      throw new Exception("Unknown Location: \"" + loc.toString() + "\"");
   }
 }
 
@@ -24,7 +24,7 @@ ELocation getLocationEnum(String loc) {
     case "Pantry":
       return ELocation.Pantry;
     default:
-      throw new Exception("Unknown Location");
+      throw new Exception("Unknown Location: \"" + loc + "\"");
   }
 }
 
@@ -53,5 +53,31 @@ String getCategoryName(ECategory cat) {
       return "Bread";
     case ECategory.Other:
       return "Other";
+  }
+}
+
+ECategory getCategoryEnum(String cat) {
+  switch (cat) {
+
+    case "Fish":
+      return ECategory.Fish;
+    case "Beef":
+      return ECategory.Beef;
+    case "Poultry":
+      return ECategory.Poultry;
+    case "Pork":
+      return ECategory.Pork;
+    case "Vegetables":
+      return ECategory.Vegetable;
+    case "Fruit":
+      return ECategory.Fruit;
+    case "Daiary":
+      return ECategory.Dairy;
+    case "Bread":
+      return ECategory.Bread;
+    case "Other":
+      return ECategory.Other;
+    default:
+      throw new Exception("Unknown Location: \"" + cat + "\"");
   }
 }

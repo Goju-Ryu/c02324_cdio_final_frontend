@@ -1,16 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:semester2_cdio_final/util/foodDTO.dart';
+import 'package:FoodTracker/util/foodDTO.dart';
 
-final String _root = 'http://10.16.167.245:8080/rest/food/user';
+final String _root = 'http://10.16.168.199:8083/rest/food/user';
+int _isWritingToDB = 0;
 
 
 
 Future<FoodDTO> getFood(String userName, int foodId) async {
   String url = _root + "/" + userName + "/get/" + foodId.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
+
+  await _isReadReady();
 
   final response = await http.get(url, headers: headers);
 
@@ -30,6 +34,9 @@ Future<FoodDTO> getFood(String userName, int foodId) async {
 Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   String url = _root + "/" + userName + "/get/expire/" + days.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
+
+  await _isReadReady();
+
   final response = await http.get(url, headers: headers);
     print("på den anden side");
   if (response.statusCode == 200) {
@@ -51,6 +58,8 @@ Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
 Future<List<FoodDTO>> getFoodList(String userName, int location) async {
   String url = _root + "/" + userName + "/get/storage/" + location.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
+
+  await _isReadReady();
 
   final response = await http.get(url, headers: headers);
 
@@ -75,23 +84,33 @@ Future<String> addFood([Map<String, String> food]) async {
   String url = _root;
   Map<String, String> header = {"Content-type": "application/json"};
   print("Adding food: " + food.toString());
+
+  _isWritingToDB++;
+
   final response = await http.post(url, headers: header, body: jsonEncode(food), encoding: Encoding.getByName("json"));
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
+  _isWritingToDB--;
+
     print("Food successfully created");
     return "Food successfully created";
   } else {
     print('Error in food creation');
     print("Error type: " + response.statusCode.toString());
     print(response.body);
-    throw Exception('Failed to create food');
+    return 'Failed to create food';
   }
 }
 
 Future<String> deleteFood(String userName, int foodId) async {
   String url = _root + "/" + userName + "/delete/" + foodId.toString();
   print(url);
+
+  _isWritingToDB++;
+
   final response = await http.delete(url);
+
+  _isWritingToDB--;
 
   if (response.statusCode == 200) {
     return "Food successfully deleted"; //Post.fromJson(json.decode(response.body));
@@ -107,7 +126,12 @@ Future<String> deleteFood(String userName, int foodId) async {
 Future<String> deleteAllFood(String userName, String location) async {
   String url = _root + "/" + userName + "/delete/all/" + location;
   print(url);
+
+  _isWritingToDB++;
+
   final response = await http.delete(url);
+
+  _isWritingToDB--;
 
   if (response.statusCode == 200) {
     return "Food successfully deleted"; //Post.fromJson(json.decode(response.body));
@@ -120,10 +144,15 @@ Future<String> deleteAllFood(String userName, String location) async {
   }
 }
 
-Future<String> updateFood(String userName, int ingredientId) async {
+Future<String> updateFood(String userName, int ingredientId, Map<String, String> food) async {
   String url = _root + "/" + userName + "/put/" + ingredientId.toString();
   Map<String, String> headers = {"Content-type": "application/json"};
-  final response = await http.put(url, headers: headers);
+
+  _isWritingToDB++;
+
+  final response = await http.put(url, headers: headers, body: jsonEncode(food), encoding: Encoding.getByName("json"));
+
+  _isWritingToDB--;
 
   if (response.statusCode == 200) {
     //400
@@ -190,4 +219,11 @@ Future<bool> verifyUser(String userName) async {
     print(response.body);
     throw Exception('User does not exist');
   }
+}
+
+Future<bool> _isReadReady() async {
+  while(_isWritingToDB > 0) {
+    await Future.delayed(Duration(milliseconds: 1));
+  }
+  return true;
 }

@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:semester2_cdio_final/util/foodDTO.dart';
-import 'package:semester2_cdio_final/util/enums.dart';
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/view/pages/itemInfo.dart';
+import 'package:FoodTracker/util/foodDTO.dart';
+import 'package:FoodTracker/util/enums.dart';
+import 'package:FoodTracker/rest/rest.dart' as rest;
+import 'package:FoodTracker/util/sharedStates.dart';
+import 'package:FoodTracker/view/pages/itemInfo.dart';
 
 //Put this widget in main body to make the list of foods
 class ItemList extends StatelessWidget {
