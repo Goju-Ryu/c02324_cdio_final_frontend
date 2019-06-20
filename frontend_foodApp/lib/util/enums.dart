@@ -48,7 +48,7 @@ String getCategoryName(ECategory cat) {
     case ECategory.Fruit:
       return "Fruit";
     case ECategory.Dairy:
-      return "Daiary";
+      return "Dairy";
     case ECategory.Bread:
       return "Bread";
     case ECategory.Other:
@@ -71,7 +71,7 @@ ECategory getCategoryEnum(String cat) {
       return ECategory.Vegetable;
     case "Fruit":
       return ECategory.Fruit;
-    case "Daiary":
+    case "Dairy":
       return ECategory.Dairy;
     case "Bread":
       return ECategory.Bread;
