@@ -67,7 +67,7 @@ class _CreateItemState extends State<CreateItem> {
                         _category = value;
                       });
                     },
-                    hint: Text("Choose a cagory"),
+                    hint: Text("Choose a category"),
                     isExpanded: true,
                   ),
                   (_location == ELocation.Freezer &&
