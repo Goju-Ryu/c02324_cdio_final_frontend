@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:semester2_cdio_final/util/stdColours.dart';
+import 'package:semester2_cdio_final/util/textStyles.dart';
 import 'package:semester2_cdio_final/util/foodDTO.dart';
 import 'package:semester2_cdio_final/util/enums.dart';
 import 'package:semester2_cdio_final/util/sharedStates.dart';
@@ -36,16 +37,42 @@ class Item extends StatelessWidget {
           Flexible(
             fit: FlexFit.tight,
             flex: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(this._foodItem.foodName),
-                Text(this._foodItem.category),
-                Text(this._foodItem.expDate),
-                Text(this._foodItem.location),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                    Text("Name:", style: labelStyle),
+                    Text(this._foodItem.foodName, style: itemListStyle)
+                  ],),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Category:", style: labelStyle),
+                      Text(this._foodItem.category, style: itemListStyle)
+                    ],),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Expiration date:", style: labelStyle),
+                      Text(this._foodItem.expDate, style: itemListStyle)
+                    ],),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("Location:", style: labelStyle),
+                      Text(this._foodItem.location, style: itemListStyle)
+                    ],)
+                ],
+              ),
             ),
           ),
           Flexible(
