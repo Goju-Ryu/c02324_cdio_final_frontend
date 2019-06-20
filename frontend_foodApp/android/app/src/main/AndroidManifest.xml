@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="c02324.f19.group14.frontend.semester2_cdio_final">
+    package="c02324.f19.group14.frontend.FoodTracker">
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="semester2_cdio_final"
+        android:label="FoodTracker"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

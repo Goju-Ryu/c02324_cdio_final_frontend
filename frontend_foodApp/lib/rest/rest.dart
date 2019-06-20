@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:semester2_cdio_final/util/foodDTO.dart';
+import 'package:FoodTracker/util/foodDTO.dart';
 
 final String _root = 'http://10.16.168.199:8083/rest/food/user';
 int _isWritingToDB = 0;

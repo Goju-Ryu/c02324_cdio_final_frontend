@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/util/enums.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/util/stdColours.dart';
-import 'package:semester2_cdio_final/util/foodDTO.dart';
-import 'package:semester2_cdio_final/view/pages/itemList.dart';
+import 'package:FoodTracker/rest/rest.dart' as rest;
+import 'package:FoodTracker/util/enums.dart';
+import 'package:FoodTracker/util/sharedStates.dart';
+import 'package:FoodTracker/util/stdColours.dart';
+import 'package:FoodTracker/util/foodDTO.dart';
+import 'package:FoodTracker/view/pages/itemList.dart';
 
 class ModifyItem extends StatefulWidget {
   final FoodDTO _food;
@@ -46,7 +47,6 @@ class _ModifyItemState extends State<ModifyItem> {
   }
 
   Widget build(BuildContext context) {
-
     final _appState = Provider.of<AppState>(context);
     return SingleChildScrollView(
       child: Container(

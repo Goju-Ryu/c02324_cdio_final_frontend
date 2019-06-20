@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:semester2_cdio_final/util/foodDTO.dart';
+import 'package:FoodTracker/util/foodDTO.dart';
 
 
 class PopNotification {

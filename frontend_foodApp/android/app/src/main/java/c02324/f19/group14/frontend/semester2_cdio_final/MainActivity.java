@@ -1,4 +1,4 @@
-package c02324.f19.group14.frontend.semester2_cdio_final;
+package c02324.f19.group14.frontend.FoodTracker;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

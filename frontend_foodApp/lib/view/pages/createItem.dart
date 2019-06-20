@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:semester2_cdio_final/rest/rest.dart' as rest;
-import 'package:semester2_cdio_final/util/enums.dart';
-import 'package:semester2_cdio_final/util/sharedStates.dart';
-import 'package:semester2_cdio_final/util/stdColours.dart';
-import 'package:semester2_cdio_final/util/textStyles.dart';
+import 'package:FoodTracker/rest/rest.dart' as rest;
+import 'package:FoodTracker/util/enums.dart';
+import 'package:FoodTracker/util/sharedStates.dart';
+import 'package:FoodTracker/util/stdColours.dart';
+import 'package:FoodTracker/util/textStyles.dart';
 
 class CreateItem extends StatefulWidget {
   @override
