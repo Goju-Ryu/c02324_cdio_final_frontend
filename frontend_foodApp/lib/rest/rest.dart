@@ -43,7 +43,6 @@ Future<List<FoodDTO>> getExpiredFood(String userName, int days) async {
   await _isReadReady();
 
   final response = await http.get(url, headers: headers);
-  print("på den anden side");
   if (response.statusCode == 200) {  // StatusCode 200 means success
 
     //if server returns success
