@@ -67,7 +67,7 @@ class _CreateItemState extends State<CreateItem> {
                         _category = value;
                       });
                     },
-                    hint: Text("Choose a cagory"),
+                    hint: Text("Choose a category"),
                     isExpanded: true,
                   ),
                   (_location == ELocation.Freezer &&
@@ -112,6 +112,11 @@ class _CreateItemState extends State<CreateItem> {
                         _createDialog(context, "Error",
                             "You have to enter a date for your food");
                         return;
+                      }//Makes sure the _expDate isn't null so we are able to create the food.
+                      
+                      if(_location == ELocation.Freezer && _category != ECategory.Other){
+                        _expDate = DateTime.fromMicrosecondsSinceEpoch(0);
+
                       }
 
                       rest.addFood({
