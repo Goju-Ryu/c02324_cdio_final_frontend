@@ -44,7 +44,7 @@ String getCategoryName(ECategory cat) {
     case ECategory.Pork:
       return "Pork";
     case ECategory.Vegetable:
-      return "Vegetables";
+      return "Vegetable";
     case ECategory.Fruit:
       return "Fruit";
     case ECategory.Dairy:
@@ -67,7 +67,7 @@ ECategory getCategoryEnum(String cat) {
       return ECategory.Poultry;
     case "Pork":
       return ECategory.Pork;
-    case "Vegetables":
+    case "Vegetable":
       return ECategory.Vegetable;
     case "Fruit":
       return ECategory.Fruit;
@@ -78,6 +78,6 @@ ECategory getCategoryEnum(String cat) {
     case "Other":
       return ECategory.Other;
     default:
-      throw new Exception("Unknown Location: \"" + cat + "\"");
+      throw new Exception("Unknown category: \"" + cat + "\"");
   }
 }
