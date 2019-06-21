@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-final primaryColour = new Color.fromARGB(255, 0, 110, 255); //Dark but not too dark blue, royal blue
+const primaryColour = Colors.blue;
 final secondaryColour = Colors.blueAccent;
 final btnDisabledColour = Colors.blueGrey;
 final btnHighlightColour = Colors.lightBlueAccent;
