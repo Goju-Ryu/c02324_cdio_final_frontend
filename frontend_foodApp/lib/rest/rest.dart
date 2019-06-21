@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:FoodTracker/util/foodDTO.dart';
 
-final String _root = 'http://192.168.0.12:8083/rest/food/user';
+final String _root = 'http://10.16.160.191:8083/rest/food/user';
 int _isWritingToDB = 0;
 
 
