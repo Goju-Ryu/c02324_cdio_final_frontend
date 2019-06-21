@@ -75,11 +75,11 @@ Future<List<FoodDTO>> getFoodList(String userName, int location) async {
   if (response.statusCode == 200) {  // StatusCode 200 means success
 
     //if server returns success
-    Iterable foods = json.decode(response.body); //Henrik
+    Iterable foods = json.decode(response.body);
     print("got response: " + response.body);
     return foods
         .map((foodElement) => FoodDTO.fromJson(foodElement))
-        .toList(); //Henrik
+        .toList();
   } else {
     //if response was not success, throw an exception and print error
     print('Error in fetchMessage');
@@ -233,7 +233,7 @@ Future<String> deleteUser(String userName) async {
   final response = await http.delete(url);
 
   if (response.statusCode == 200) {  // StatusCode 200 means success
-    return "User successfully deleted"; //Post.fromJson(json.decode(response.body));
+    return "User successfully deleted";
 
   } else {  //if response was not success, throw an exception and print error
     print("Error in deletion");
@@ -260,7 +260,6 @@ Future<bool> verifyUser(String userName) async {
     //user doesn't exist
     return false;
   } else {  //if response was not success, throw an exception and print error
-    //if response was not okay, throw an error
     print('User does not exist');
     print("Error type: " + response.statusCode.toString());
     print(response.body);
