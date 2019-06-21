@@ -5,11 +5,11 @@ class FoodDTO {
   FoodDTO({this.foodId, this.foodName, this.userName, this.expDate, this.location, this.category});
 
   factory FoodDTO.fromJson(Map<String, dynamic> json) {
-    return FoodDTO(
-        foodId: json['id'],
-        foodName: json['name'],
-        userName: json['userName'],
-        expDate: json['expDate'],
+      return FoodDTO(
+          foodId: json['id'],
+          foodName: json['name'],
+          userName: json['userName'],
+          expDate: json['expDate'],
         location: json['location'],
         category: json['category']
     );

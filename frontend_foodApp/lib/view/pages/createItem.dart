@@ -113,8 +113,9 @@ class _CreateItemState extends State<CreateItem> {
                             "You have to enter a date for your food");
                         return;
                       }//Makes sure the _expDate isn't null so we are able to create the food.
-                      else if(_location == ELocation.Freezer && _category != ECategory.Other){
-                        _expDate = DateTime(2019,06,05);
+                      
+                      if(_location == ELocation.Freezer && _category != ECategory.Other){
+                        _expDate = DateTime.fromMicrosecondsSinceEpoch(0);
 
                       }
 
