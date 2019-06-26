@@ -4,9 +4,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:FoodTracker/util/foodDTO.dart';
 
-final String _root = 'http://10.16.167.245:8080/rest/food/user';
+
+String _root;
 int _isWritingToDB = 0;
 
+void setIpAndRoot(String ip, String port) {
+  _root = "http://" + ip + ":" + port + "/rest/food/user";
+  print("root: " + _root);
+}
 
 ///
 ///Sends HTTP.GET request to get a food item
